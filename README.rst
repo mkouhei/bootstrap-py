@@ -1,0 +1,38 @@
+==========================
+ Bootstrap Python Package
+==========================
+
+The ``bootstrap-py`` provides generating the Python packages.
+
+Status
+======
+
+.. image:: https://secure.travis-ci.org/mkouhei/bootstrap-py.png?branch=master
+   :target: http://travis-ci.org/mkouhei/bootstrap-py
+.. image:: https://coveralls.io/repos/mkouhei/bootstrap-py/badge.png?branch=master
+   :target: https://coveralls.io/r/mkouhei/bootstrap-py?branch=master
+.. image:: https://img.shields.io/pypi/v/bootstrap-py.svg
+   :target: https://pypi.python.org/pypi/bootstrap-py
+.. image:: https://readthedocs.org/projects/bootstrap-py/badge/?version=latest
+   :target: https://readthedocs.org/projects/bootstrap-py/?badge=latest
+   :alt: Documentation Status
+
+Requirements
+============
+
+* Python 2.7 over or Python 3.3 over or PyPy 2.4.0 over
+
+Features
+========
+
+* Generating Python package.
+* Test and conde checking environment is configured with the `Tox <https://pypi.python.org/pypi/tox>`_, `Pytest <http://pytest.org/latest-ja/>`_, and others.
+    
+  * `pytest-cov <https://pypi.python.org/pypi/pytest-cov>`_
+  * `pytest-pep8 <https://pypi.python.org/pypi/pytest-pep8>`_
+  * `pytest-flakes <https://pypi.python.org/pypi/pytest-flakes>`_
+  * `Pylint <http://www.pylint.org/>`_
+  * `PyChecker <http://pychecker.sourceforge.net/>`_
+  * `pep257 <https://github.com/GreenSteam/pep257/>`_
+* Auto generating documentation with the `Sphinx <http://www.sphinx-doc.org/en/stable/>`_.
+* 
