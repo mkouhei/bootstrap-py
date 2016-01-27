@@ -1,0 +1,51 @@
+{% set hr=('=' * (pkg_name|length + 2)) -%}
+{{ hr }}
+ {{ pkg_name }}
+{{ hr }}
+
+TODO: Rewrite me. Append your package's long description.
+
+Status
+======
+
+.. image:: https://secure.travis-ci.org/{{ username }}/{{ pkg_name }}.png?branch=master
+   :target: http://travis-ci.org/{{ username }}/{{ pkg_name }}
+.. image:: https://coveralls.io/repos/{{ username }}/{{ pkg_name }}/badge.png?branch=master
+   :target: https://coveralls.io/r/{{ username }}/{{ pkg_name }}?branch=master
+.. image:: https://img.shields.io/pypi/v/{{ pkg_name }}.svg
+   :target: https://pypi.python.org/pypi/{{ pkg_name }}
+.. image:: https://readthedocs.org/projects/{{ pkg_name }}/badge/?version=latest
+   :target: https://readthedocs.org/projects/{{ pkg_name }}/?badge=latest
+   :alt: Documentation Status
+
+Requirements
+============
+
+* Python 2.7 or Python 3.3 over or PyPy 2.4.0 over
+
+Features
+========
+
+* ToDo: Rewrite me.
+
+Setup
+=====
+::
+
+   $ pip install --user {{ pkg_name }}
+   or
+   (venv)$ pip install {{ pkg_name }}
+
+Usage
+=====
+
+ToDo: Rewrite me.
+
+::
+
+   $ python
+   >>> import {{ pkg_name|replace('-', '_') }}
+   >>> {{ pkg_name|replace('-', '_') }}.sample.hello()
+   'hello'
+   >>>
+
