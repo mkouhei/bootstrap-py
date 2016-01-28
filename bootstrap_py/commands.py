@@ -1,8 +1,13 @@
 # -*- coding: utf-8 -*-
 """bootstrap_py.commands."""
+import os
 import sys
 import argparse
-from bootstrap_py import __version__
+from bootstrap_py import control, __version__
+
+# ToDo:
+# * Genarete Sphinx documentation
+# * Choices the FLOSS Licence
 
 
 def setoption(parser, keyword):
@@ -32,6 +37,13 @@ def setoption(parser, keyword):
                             help='Specify license.')
 
 
+def set_default_options(parser):
+    """default options."""
+    parser.add_argument('-o', '--outdir', action='store',
+                        default=os.path.abspath(os.path.curdir),
+                        help='Specify output directory.')
+
+
 def parse_options():
     """setup options."""
     parser = argparse.ArgumentParser(description='usage')
@@ -42,6 +54,7 @@ def parse_options():
     setoption(parser, 'author_email')
     setoption(parser, 'url')
     setoption(parser, 'license')
+    set_default_options(parser)
     return parser.parse_args()
 
 
@@ -49,7 +62,9 @@ def main():
     """main function."""
     try:
         args = parse_options()
-        args.func(args)
+        pkg_data = control.PackageData(args)
+        pkg_tree = control.PackageTree(pkg_data)
+        pkg_tree.generate()
     except RuntimeError as exc:
         sys.stderr.write(exc)
         sys.exit(1)
