@@ -3,6 +3,7 @@
 import os
 import shutil
 import tempfile
+from datetime import datetime
 from jinja2 import PackageLoader, Environment
 
 
@@ -10,15 +11,33 @@ from jinja2 import PackageLoader, Environment
 class PackageData(object):
     """Package meta data class."""
 
-    def _set_param(self, name, value):
-        """set name:value property to Package object."""
-        setattr(self, name, value)
+    default_version = '0.1.0'
+    warning_message = '##### ToDo: Rewrite me #####'
 
     def __init__(self, args):
         """Initialize Package."""
         if hasattr(args, '_get_kwargs'):
             for name, value in vars(args).items():
                 self._set_param(name, value)
+        self._check_or_set_default_params()
+
+    def _set_param(self, name, value):
+        """set name:value property to Package object."""
+        setattr(self, name, value)
+
+    def _check_or_set_default_params(self):
+        """check key and set default vaule when it does not exists."""
+        if not hasattr(self, 'date'):
+            self._set_param('date', datetime.utcnow().strftime('%Y-%m-%d'))
+        if not hasattr(self, 'version'):
+            self._set_param('version', self.default_version)
+        # pylint: disable=no-member
+        if not hasattr(self, 'description') or self.description is None:
+            self._set_param('description', self.warning_message)
+
+    def to_dict(self):
+        """convert to dict."""
+        return self.__dict__
 
 
 class PackageTree(object):
