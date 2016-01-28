@@ -11,7 +11,7 @@ def setoption(parser, keyword):
         parser.add_argument('-v', '--version', action='version',
                             version=__version__)
     elif keyword == 'name':
-        parser.add_argument('name', nargs=1,
+        parser.add_argument('name',
                             help='Specify Python package name.')
     elif keyword == 'description':
         parser.add_argument('-d', '--description', action='store',
