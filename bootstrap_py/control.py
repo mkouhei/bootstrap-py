@@ -16,7 +16,7 @@ class PackageData(object):
 
     def __init__(self, args):
         """Initialize Package."""
-        if hasattr(args, '_get_kwargs'):
+        if hasattr(args, '__dict__'):
             for name, value in vars(args).items():
                 self._set_param(name, value)
         self._check_or_set_default_params()
