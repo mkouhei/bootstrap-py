@@ -180,7 +180,7 @@ html_static_path = ['_static']
 # html_file_suffix = None
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'bootstrap_pydoc'
+htmlhelp_basename = 'bootstrap-pydoc'
 
 
 # -- Options for LaTeX output ---------------------------------------------
