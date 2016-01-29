@@ -1,3 +1,5 @@
 [run]
 include =
     bootstrap_py/*
+omit =
+    bootstrap_py/tests/*
