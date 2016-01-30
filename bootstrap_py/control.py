@@ -94,7 +94,7 @@ class PackageTree(object):
                     fobj.write(
                         tmpl.render(
                             module_name=getattr(
-                                self, '_modname')(dir_path)))
+                                self, '_modname')(dir_path)) + '\n')
 
     def _generate_files(self):
         for file_path in self.templates.list_templates():
@@ -104,7 +104,8 @@ class PackageTree(object):
                 else:
                     tmpl = self.templates.get_template(file_path)
                     with open(self._tmpl_path(file_path), 'w') as fobj:
-                        fobj.write(tmpl.render(**self.pkg_data.to_dict()))
+                        fobj.write(
+                            tmpl.render(**self.pkg_data.to_dict()) + '\n')
 
     def copy(self):
         """Copy directory from working directory to output directory."""
