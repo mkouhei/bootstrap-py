@@ -33,7 +33,7 @@ class PackageData(object):
             self._set_param('version', self.default_version)
         # pylint: disable=no-member
         if not hasattr(self, 'description') or self.description is None:
-            self._set_param('description', self.warning_message)
+            getattr(self, '_set_param')('description', self.warning_message)
 
     def to_dict(self):
         """convert to dict."""
@@ -90,9 +90,11 @@ class PackageTree(object):
         for dir_path in self._list_module_dirs():
             if not os.path.isfile(self._init_py(dir_path)):
                 with open(self._init_py(dir_path), 'w') as fobj:
+                    # pylint: disable=no-member
                     fobj.write(
-                        # pylint: disable=no-member
-                        tmpl.render(module_name=self._modname(dir_path)))
+                        tmpl.render(
+                            module_name=getattr(
+                                self, '_modname')(dir_path)))
 
     def _generate_files(self):
         for file_path in self.templates.list_templates():
