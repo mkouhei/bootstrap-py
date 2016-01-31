@@ -68,7 +68,7 @@ classifiers = [
 
 long_description = (
     read_content("README.rst") +
-    read_content(os.path.join("docs/source", "HISTORY.rst")))
+    read_content(os.path.join("docs/source", "CHANGELOG.rst")))
 
 requires = ['setuptools',
             'Jinja2',
