@@ -40,7 +40,7 @@ class PackageDataTests(unittest.TestCase):
         setattr(self.default_params, 'version', '1.0.0')
         setattr(self.default_params, 'description', 'dummy description.')
 
-    def test_provides_paras(self):
+    def test_provides_params(self):
         """provides params without default params."""
         # pylint: disable=no-member
         pkg_data = control.PackageData(self.params)
