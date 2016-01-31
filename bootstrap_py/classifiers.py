@@ -8,11 +8,22 @@ class Classifiers(object):
     """Classifiers."""
 
     url = 'https://pypi.python.org/pypi?%3Aaction=list_classifiers'
+    prefix_status = 'Development Status :: '
     prefix_lic = 'License :: OSI Approved :: '
 
     def __init__(self):
         """Initialize."""
         self.resp = requests.get(self.url)
+
+    def status(self):
+        """Development status."""
+        return {self._acronym_status(l): l for l in self.resp.text.split('\n')
+                if l.startswith(self.prefix_status)}
+
+    @staticmethod
+    def _acronym_status(status_statement):
+        """convert development status acronym."""
+        return status_statement.split(' - ')[1]
 
     def licenses(self):
         """OSI Approved license."""

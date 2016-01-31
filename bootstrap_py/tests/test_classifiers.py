@@ -18,6 +18,11 @@ class ClassifiersTests(unittest.TestCase):
                      status_code=200)
         self.data = Classifiers()
 
+    def test_status(self):
+        """respond dict status."""
+        self.assertEqual(len(self.data.status().keys()), 7)
+        self.assertEqual(len(self.data.status().values()), 7)
+
     def test_licenses(self):
         """respond dict licenses."""
         self.assertEqual(len(self.data.licenses().keys()), 49)
