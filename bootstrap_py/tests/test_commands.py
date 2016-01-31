@@ -55,21 +55,21 @@ class CommandsTests(unittest.TestCase):
                          self.parser.parse_args('foo'.split()).name)
 
     def test_setoption_author(self):
-        """parse argeument author."""
+        """parse argument author."""
         commands.setoption(self.parser, 'author')
         self.assertEqual(
             'Alice Forest',
             self.parser.parse_args(shlex.split('-a "Alice Forest"')).author)
 
     def test_setoption_author_email(self):
-        """parse argeument email."""
+        """parse argument email."""
         commands.setoption(self.parser, 'author_email')
         self.assertEqual(
             'alice@example.org',
             self.parser.parse_args(shlex.split('-e alice@example.org')).email)
 
     def test_setoption_description(self):
-        """parse argeument description."""
+        """parse argument description."""
         commands.setoption(self.parser, 'description')
         self.assertEqual(
             'short description.',
@@ -77,21 +77,21 @@ class CommandsTests(unittest.TestCase):
                 shlex.split('-d "short description."')).description)
 
     def test_setoption_url(self):
-        """parse argeument url."""
+        """parse argument url."""
         commands.setoption(self.parser, 'url')
         self.assertEqual(
             'http://example.org',
             self.parser.parse_args(shlex.split('-u http://example.org')).url)
 
     def test_setoption_license(self):
-        """parse argeument license."""
         commands.setoption(self.parser, 'license')
+        """parse argument license."""
         self.assertEqual(
             'GPLv3+',
             self.parser.parse_args(shlex.split('-l GPLv3+')).license)
 
     def test_setoption_default_options(self):
-        """parse argeument default options."""
+        """parse argument default options."""
         commands.set_default_options(self.parser)
         self.assertEqual(
             '/path/to/outdir',
