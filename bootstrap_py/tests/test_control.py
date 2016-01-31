@@ -23,13 +23,6 @@ class PackageDataTests(unittest.TestCase):
 
     def setUp(self):
         """Prepare test data."""
-        with requests_mock.Mocker() as mock:
-            with open('bootstrap_py/tests/data/classifiers.txt') as fobj:
-                data = fobj.read()
-            mock.get(Classifiers.url,
-                     text=data,
-                     status_code=200)
-
         self.params = Dummy()
         setattr(self.params, 'foo', 'hoge')
         setattr(self.params, 'bar', 'moge')
@@ -42,8 +35,14 @@ class PackageDataTests(unittest.TestCase):
 
     def test_provides_params(self):
         """provides params without default params."""
+        with requests_mock.Mocker() as mock:
+            with open('bootstrap_py/tests/data/classifiers.txt') as fobj:
+                data = fobj.read()
+            mock.get(Classifiers.url,
+                     text=data,
+                     status_code=200)
+            pkg_data = control.PackageData(self.params)
         # pylint: disable=no-member
-        pkg_data = control.PackageData(self.params)
         self.assertEqual(pkg_data.foo, 'hoge')
         self.assertEqual(pkg_data.bar, 'moge')
         self.assertEqual(pkg_data.baz, 'fuga')
@@ -53,15 +52,28 @@ class PackageDataTests(unittest.TestCase):
 
     def test_provides_default_params(self):
         """provides params without default params."""
+        with requests_mock.Mocker() as mock:
+            with open('bootstrap_py/tests/data/classifiers.txt') as fobj:
+                data = fobj.read()
+            mock.get(Classifiers.url,
+                     text=data,
+                     status_code=200)
+            pkg_data = control.PackageData(self.default_params)
         # pylint: disable=no-member
-        pkg_data = control.PackageData(self.default_params)
         self.assertEqual(pkg_data.date, '2016-01-29')
         self.assertEqual(pkg_data.version, '1.0.0')
         self.assertEqual(pkg_data.description, 'dummy description.')
 
     def test_convert_to_dict(self):
         """convert PackageData to dict."""
-        dict_data = control.PackageData(self.default_params).to_dict()
+        with requests_mock.Mocker() as mock:
+            with open('bootstrap_py/tests/data/classifiers.txt') as fobj:
+                data = fobj.read()
+            mock.get(Classifiers.url,
+                     text=data,
+                     status_code=200)
+            dict_data = control.PackageData(self.default_params).to_dict()
+        # pylint: disable=no-member
         self.assertEqual(dict_data.get('date'), '2016-01-29')
         self.assertEqual(dict_data.get('version'), '1.0.0')
         self.assertEqual(dict_data.get('description'), 'dummy description.')
@@ -81,7 +93,13 @@ class PackageTreeTests(unittest.TestCase):
         setattr(params, 'url', 'https://example.org/foo')
         setattr(params, 'license', 'gplv3')
         setattr(params, 'outdir', self.testdir)
-        self.pkg_data = control.PackageData(params)
+        with requests_mock.Mocker() as mock:
+            with open('bootstrap_py/tests/data/classifiers.txt') as fobj:
+                data = fobj.read()
+            mock.get(Classifiers.url,
+                     text=data,
+                     status_code=200)
+            self.pkg_data = control.PackageData(params)
         self.pkg_tree = control.PackageTree(self.pkg_data)
 
     def tearDown(self):

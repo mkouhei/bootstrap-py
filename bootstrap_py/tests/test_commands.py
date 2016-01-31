@@ -24,7 +24,7 @@ class CommandsTests(unittest.TestCase):
             mock.get(Classifiers.url,
                      text=data,
                      status_code=200)
-        self.metadata = Classifiers()
+            self.metadata = Classifiers()
         self.parser = argparse.ArgumentParser(description='usage')
         self.capture = sys.stdout
         self.capture_error = sys.stderr
@@ -122,7 +122,13 @@ class CommandsTests(unittest.TestCase):
 
     def test_main_fail_to_parse(self):
         """main fail."""
-        with self.assertRaises(SystemExit) as exc:
-            commands.main()
+        with requests_mock.Mocker() as mock:
+            with open('bootstrap_py/tests/data/classifiers.txt') as fobj:
+                data = fobj.read()
+            mock.get(Classifiers.url,
+                     text=data,
+                     status_code=200)
+            with self.assertRaises(SystemExit) as exc:
+                commands.main()
         self.assertEqual(2, exc.exception.code)
         self.assertTrue(sys.stderr.getvalue())

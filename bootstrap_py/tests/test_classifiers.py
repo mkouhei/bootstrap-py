@@ -16,7 +16,7 @@ class ClassifiersTests(unittest.TestCase):
             mock.get(Classifiers.url,
                      text=data,
                      status_code=200)
-        self.data = Classifiers()
+            self.data = Classifiers()
 
     def test_status(self):
         """respond dict status."""
