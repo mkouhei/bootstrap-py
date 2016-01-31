@@ -58,6 +58,7 @@ class PackageTree(object):
 
     def __init__(self, pkg_data):
         """Initialize."""
+        self.cwd = os.getcwd()
         self.name = pkg_data.name
         self.outdir = os.path.abspath(pkg_data.outdir)
         self.tmpdir = tempfile.mkdtemp(suffix=self.suffix)
@@ -113,6 +114,9 @@ class PackageTree(object):
                     with open(self._tmpl_path(file_path), 'w') as fobj:
                         fobj.write(
                             tmpl.render(**self.pkg_data.to_dict()) + '\n')
+        os.chdir(self.tmpdir)
+        os.symlink('../../README.rst', 'docs/source/README')
+        os.chdir(self.cwd)
 
     def copy(self):
         """Copy directory from working directory to output directory."""

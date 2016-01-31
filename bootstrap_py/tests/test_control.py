@@ -152,7 +152,7 @@ class PackageTreeTests(unittest.TestCase):
         self.assertEqual(len([i for i in glob('utils/*')
                               if os.path.isfile(i)]), 1)
         self.assertEqual(len([i for i in glob('docs/source/*')
-                              if os.path.isfile(i)]), 2)
+                              if os.path.isfile(i)]), 3)
         self.assertEqual(len([i for i in glob('docs/source/modules/*')
                               if os.path.isfile(i)]), 1)
 
@@ -182,7 +182,7 @@ class PackageTreeTests(unittest.TestCase):
         self.assertEqual(len([i for i in glob('utils/*')
                               if os.path.isfile(i)]), 1)
         self.assertEqual(len([i for i in glob('docs/source/*')
-                              if os.path.isfile(i)]), 2)
+                              if os.path.isfile(i)]), 3)
         self.assertEqual(len([i for i in glob('docs/source/modules/*')
                               if os.path.isfile(i)]), 1)
 
