@@ -87,8 +87,8 @@ class CommandsTests(unittest.TestCase):
         """parse argeument license."""
         commands.setoption(self.parser, 'license')
         self.assertEqual(
-            'gplv3',
-            self.parser.parse_args(shlex.split('-l gplv3')).license)
+            'GPLv3+',
+            self.parser.parse_args(shlex.split('-l GPLv3+')).license)
 
     def test_setoption_default_options(self):
         """parse argeument default options."""

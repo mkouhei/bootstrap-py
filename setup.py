@@ -71,7 +71,8 @@ long_description = (
     read_content(os.path.join("docs/source", "HISTORY.rst")))
 
 requires = ['setuptools',
-            'Jinja2']
+            'Jinja2',
+            'requests']
 extras_require = {
     'reST': ['Sphinx'],
     }

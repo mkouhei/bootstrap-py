@@ -5,6 +5,7 @@ import shutil
 import tempfile
 from datetime import datetime
 from jinja2 import PackageLoader, Environment
+from bootstrap_py.classifiers import Classifiers
 
 
 # pylint: disable=too-few-public-methods
@@ -23,7 +24,10 @@ class PackageData(object):
 
     def _set_param(self, name, value):
         """set name:value property to Package object."""
-        setattr(self, name, value)
+        if name == 'license':
+            setattr(self, name, Classifiers().licenses().get(value))
+        else:
+            setattr(self, name, value)
 
     def _check_or_set_default_params(self):
         """check key and set default vaule when it does not exists."""

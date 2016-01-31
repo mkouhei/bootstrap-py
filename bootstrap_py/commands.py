@@ -4,10 +4,10 @@ import os
 import sys
 import argparse
 from bootstrap_py import control, __version__
+from bootstrap_py.classifiers import Classifiers
 
 # ToDo:
 # * Genarete Sphinx documentation
-# * Choices the FLOSS Licence
 
 
 def setoption(parser, keyword):
@@ -33,7 +33,9 @@ def setoption(parser, keyword):
         parser.add_argument('-u', '--url', action='store',
                             help='Python package homepage url.')
     elif keyword == 'license':
-        parser.add_argument('-l', '--license', action='store',
+        parser.add_argument('-l', '--license',
+                            choices=Classifiers().licenses().keys(),
+                            default='GPLv3+',
                             help='Specify license.')
 
 
