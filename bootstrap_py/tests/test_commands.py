@@ -92,6 +92,13 @@ class CommandsTests(unittest.TestCase):
             'http://example.org',
             self.parser.parse_args(shlex.split('-u http://example.org')).url)
 
+    def test_setoption_username(self):
+        """parse argument username."""
+        commands.setoption(self.parser, 'username')
+        self.assertEqual(
+            'alice',
+            self.parser.parse_args(shlex.split('-U alice')).username)
+
     def test_setoption_status(self):
         """parse argument status."""
         commands.setoption(self.parser, 'status', metadata=self.metadata)

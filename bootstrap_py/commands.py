@@ -29,6 +29,9 @@ def setoption(parser, keyword, metadata=None):
         parser.add_argument('-e', '--email', action='store',
                             required=True,
                             help='Python package author email address.')
+    elif keyword == 'username':
+        parser.add_argument('-U', '--username', action='store',
+                            help='Specify GitHub username')
     elif keyword == 'url':
         parser.add_argument('-u', '--url', action='store',
                             help='Python package homepage url.')
@@ -59,6 +62,7 @@ def parse_options(metadata):
     setoption(parser, 'description')
     setoption(parser, 'author')
     setoption(parser, 'author_email')
+    setoption(parser, 'username')
     setoption(parser, 'url')
     setoption(parser, 'license', metadata=metadata)
     setoption(parser, 'status', metadata=metadata)
