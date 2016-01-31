@@ -35,4 +35,3 @@ Features
   * `PyChecker <http://pychecker.sourceforge.net/>`_
   * `pep257 <https://github.com/GreenSteam/pep257/>`_
 * Auto generating documentation with the `Sphinx <http://www.sphinx-doc.org/en/stable/>`_.
-* 
