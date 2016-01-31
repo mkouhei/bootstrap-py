@@ -17,6 +17,7 @@ class PackageData(object):
 
     def __init__(self, args):
         """Initialize Package."""
+        self.metadata = Classifiers()
         if hasattr(args, '__dict__'):
             for name, value in vars(args).items():
                 self._set_param(name, value)
@@ -24,8 +25,10 @@ class PackageData(object):
 
     def _set_param(self, name, value):
         """set name:value property to Package object."""
-        if name == 'license':
-            setattr(self, name, Classifiers().licenses().get(value))
+        if name == 'status':
+            setattr(self, name, self.metadata.status().get(value))
+        elif name == 'license':
+            setattr(self, name, self.metadata.licenses().get(value))
         else:
             setattr(self, name, value)
 

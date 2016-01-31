@@ -10,7 +10,7 @@ from bootstrap_py.classifiers import Classifiers
 # * Genarete Sphinx documentation
 
 
-def setoption(parser, keyword):
+def setoption(parser, keyword, metadata=None):
     """Set argument parser option."""
     if keyword == 'version':
         parser.add_argument('-v', '--version', action='version',
@@ -34,9 +34,14 @@ def setoption(parser, keyword):
                             help='Python package homepage url.')
     elif keyword == 'license':
         parser.add_argument('-l', '--license',
-                            choices=Classifiers().licenses().keys(),
+                            choices=metadata.licenses().keys(),
                             default='GPLv3+',
                             help='Specify license.')
+    elif keyword == 'status':
+        parser.add_argument('-s', '--status',
+                            choices=metadata.status().keys(),
+                            default='Alpha',
+                            help='Specify development status.')
 
 
 def set_default_options(parser):
@@ -46,7 +51,7 @@ def set_default_options(parser):
                         help='Specify output directory.')
 
 
-def parse_options():
+def parse_options(metadata):
     """setup options."""
     parser = argparse.ArgumentParser(description='usage')
     setoption(parser, 'version')
@@ -55,7 +60,8 @@ def parse_options():
     setoption(parser, 'author')
     setoption(parser, 'author_email')
     setoption(parser, 'url')
-    setoption(parser, 'license')
+    setoption(parser, 'license', metadata=metadata)
+    setoption(parser, 'status', metadata=metadata)
     set_default_options(parser)
     return parser.parse_args()
 
@@ -63,7 +69,8 @@ def parse_options():
 def main():
     """main function."""
     try:
-        args = parse_options()
+        metadata = Classifiers()
+        args = parse_options(metadata)
         pkg_data = control.PackageData(args)
         pkg_tree = control.PackageTree(pkg_data)
         pkg_tree.generate()

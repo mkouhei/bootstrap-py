@@ -7,7 +7,9 @@ import tempfile
 from glob import glob
 from filecmp import dircmp
 from datetime import datetime
+import requests_mock
 from bootstrap_py import control
+from bootstrap_py.classifiers import Classifiers
 
 
 # pylint: disable=too-few-public-methods
@@ -21,6 +23,13 @@ class PackageDataTests(unittest.TestCase):
 
     def setUp(self):
         """Prepare test data."""
+        with requests_mock.Mocker() as mock:
+            with open('bootstrap_py/tests/data/classifiers.txt') as fobj:
+                data = fobj.read()
+            mock.get(Classifiers.url,
+                     text=data,
+                     status_code=200)
+
         self.params = Dummy()
         setattr(self.params, 'foo', 'hoge')
         setattr(self.params, 'bar', 'moge')
@@ -53,10 +62,9 @@ class PackageDataTests(unittest.TestCase):
     def test_convert_to_dict(self):
         """convert PackageData to dict."""
         dict_data = control.PackageData(self.default_params).to_dict()
-        self.assertDictEqual(dict_data,
-                             {'date': '2016-01-29',
-                              'version': '1.0.0',
-                              'description': 'dummy description.'})
+        self.assertEqual(dict_data.get('date'), '2016-01-29')
+        self.assertEqual(dict_data.get('version'), '1.0.0')
+        self.assertEqual(dict_data.get('description'), 'dummy description.')
 
 
 class PackageTreeTests(unittest.TestCase):

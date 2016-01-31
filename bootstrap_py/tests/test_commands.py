@@ -8,7 +8,9 @@ import shutil
 import sys
 import tempfile
 import six
+import requests_mock
 from bootstrap_py import commands, __version__
+from bootstrap_py.classifiers import Classifiers
 
 
 class CommandsTests(unittest.TestCase):
@@ -16,6 +18,13 @@ class CommandsTests(unittest.TestCase):
 
     def setUp(self):
         """Prepare tests."""
+        with requests_mock.Mocker() as mock:
+            with open('bootstrap_py/tests/data/classifiers.txt') as fobj:
+                data = fobj.read()
+            mock.get(Classifiers.url,
+                     text=data,
+                     status_code=200)
+        self.metadata = Classifiers()
         self.parser = argparse.ArgumentParser(description='usage')
         self.capture = sys.stdout
         self.capture_error = sys.stderr
@@ -44,7 +53,7 @@ class CommandsTests(unittest.TestCase):
     def test_parse_options_fail(self):
         """fail parse options."""
         with self.assertRaises(SystemExit) as exc:
-            commands.parse_options()
+            commands.parse_options(self.metadata)
         self.assertEqual(2, exc.exception.code)
         self.assertTrue(sys.stderr.getvalue())
 
@@ -83,9 +92,16 @@ class CommandsTests(unittest.TestCase):
             'http://example.org',
             self.parser.parse_args(shlex.split('-u http://example.org')).url)
 
+    def test_setoption_status(self):
+        """parse argument status."""
+        commands.setoption(self.parser, 'status', metadata=self.metadata)
+        self.assertEqual(
+            'Alpha',
+            self.parser.parse_args(shlex.split('-s Alpha')).status)
+
     def test_setoption_license(self):
-        commands.setoption(self.parser, 'license')
         """parse argument license."""
+        commands.setoption(self.parser, 'license', metadata=self.metadata)
         self.assertEqual(
             'GPLv3+',
             self.parser.parse_args(shlex.split('-l GPLv3+')).license)
