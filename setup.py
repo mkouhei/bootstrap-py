@@ -72,6 +72,7 @@ long_description = (
 
 requires = ['setuptools',
             'Jinja2',
+            'Sphinx',
             'requests']
 extras_require = {
     'reST': ['Sphinx'],

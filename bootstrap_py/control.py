@@ -6,6 +6,7 @@ import tempfile
 from datetime import datetime
 from jinja2 import PackageLoader, Environment
 from bootstrap_py.classifiers import Classifiers
+from bootstrap_py.docs import build_sphinx
 
 
 # pylint: disable=too-few-public-methods
@@ -88,6 +89,11 @@ class PackageTree(object):
                                          dir_path.format(name=self.name)),
                             self.dir_perm)
 
+    def _generate_docs(self):
+        docs_path = os.path.join(self.tmpdir, 'docs')
+        os.makedirs(docs_path)
+        build_sphinx(self.pkg_data, docs_path)
+
     def _list_module_dirs(self):
         return [dir_path for dir_path in self.pkg_dirs
                 if dir_path.find('{name}') == 0]
@@ -130,6 +136,7 @@ class PackageTree(object):
 
     def generate(self):
         """Generate package directory tree."""
+        self._generate_docs()
         self._generate_dirs()
         self._generate_init()
         self._generate_files()

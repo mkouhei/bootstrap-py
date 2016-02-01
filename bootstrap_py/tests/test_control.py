@@ -7,6 +7,7 @@ import tempfile
 from glob import glob
 from filecmp import dircmp
 from datetime import datetime
+from mock import patch
 import requests_mock
 from bootstrap_py import control
 from bootstrap_py.classifiers import Classifiers
@@ -182,8 +183,12 @@ class PackageTreeTests(unittest.TestCase):
         self.assertListEqual(dcmp.right_only, ['foo'])
         self.assertTrue(len(dcmp.common) == 0)
 
-    def test_generate(self):
+    @patch('subprocess.Popen')
+    def test_generate(self, _mock):
         """generate directories, and files."""
+        popen_mock = _mock.return_value
+        popen_mock.wait = None
+        popen_mock.call = None
         self.pkg_tree.generate()
         os.chdir(self.pkg_tree.tmpdir)
         self.assertTrue(os.path.isdir(self.pkg_tree.name))
