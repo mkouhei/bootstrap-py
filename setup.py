@@ -92,7 +92,6 @@ setup(name='bootstrap-py',
       author='Kouhei Maeda',
       author_email='mkouhei@palmtb.net',
       url='https://github.com/mkouhei/bootstrap-py',
-      license='License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)',  # noqa
       classifiers=classifiers,
       packages=['bootstrap_py'],
       data_files=[],
