@@ -100,4 +100,7 @@ setup(name='bootstrap-py',
       include_package_data=True,
       extras_require=extras_require,
       tests_require=['tox'],
-      cmdclass={'test': Tox},)
+      cmdclass={'test': Tox},
+      entry_points={
+          'console_scripts': ['bootstrap-py = bootstrap_py.commands:main']
+      },)
