@@ -11,7 +11,7 @@ class ClassifiersTests(unittest.TestCase):
     def setUp(self):
         """Prepare test data."""
         with requests_mock.Mocker() as mock:
-            with open('bootstrap_py/tests/data/classifiers.txt') as fobj:
+            with open('bootstrap_py/data/classifiers.txt') as fobj:
                 data = fobj.read()
             mock.get(Classifiers.url,
                      text=data,

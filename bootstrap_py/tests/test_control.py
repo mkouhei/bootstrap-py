@@ -36,7 +36,7 @@ class PackageDataTests(unittest.TestCase):
     def test_provides_params(self):
         """provides params without default params."""
         with requests_mock.Mocker() as mock:
-            with open('bootstrap_py/tests/data/classifiers.txt') as fobj:
+            with open('bootstrap_py/data/classifiers.txt') as fobj:
                 data = fobj.read()
             mock.get(Classifiers.url,
                      text=data,
@@ -53,7 +53,7 @@ class PackageDataTests(unittest.TestCase):
     def test_provides_default_params(self):
         """provides params without default params."""
         with requests_mock.Mocker() as mock:
-            with open('bootstrap_py/tests/data/classifiers.txt') as fobj:
+            with open('bootstrap_py/data/classifiers.txt') as fobj:
                 data = fobj.read()
             mock.get(Classifiers.url,
                      text=data,
@@ -67,7 +67,7 @@ class PackageDataTests(unittest.TestCase):
     def test_convert_to_dict(self):
         """convert PackageData to dict."""
         with requests_mock.Mocker() as mock:
-            with open('bootstrap_py/tests/data/classifiers.txt') as fobj:
+            with open('bootstrap_py/data/classifiers.txt') as fobj:
                 data = fobj.read()
             mock.get(Classifiers.url,
                      text=data,
@@ -94,7 +94,7 @@ class PackageTreeTests(unittest.TestCase):
         setattr(params, 'license', 'gplv3')
         setattr(params, 'outdir', self.testdir)
         with requests_mock.Mocker() as mock:
-            with open('bootstrap_py/tests/data/classifiers.txt') as fobj:
+            with open('bootstrap_py/data/classifiers.txt') as fobj:
                 data = fobj.read()
             mock.get(Classifiers.url,
                      text=data,

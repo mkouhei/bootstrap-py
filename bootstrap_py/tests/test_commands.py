@@ -19,7 +19,7 @@ class CommandsTests(unittest.TestCase):
     def setUp(self):
         """Prepare tests."""
         with requests_mock.Mocker() as mock:
-            with open('bootstrap_py/tests/data/classifiers.txt') as fobj:
+            with open('bootstrap_py/data/classifiers.txt') as fobj:
                 data = fobj.read()
             mock.get(Classifiers.url,
                      text=data,
@@ -123,7 +123,7 @@ class CommandsTests(unittest.TestCase):
     def test_main_fail_to_parse(self):
         """main fail."""
         with requests_mock.Mocker() as mock:
-            with open('bootstrap_py/tests/data/classifiers.txt') as fobj:
+            with open('bootstrap_py/data/classifiers.txt') as fobj:
                 data = fobj.read()
             mock.get(Classifiers.url,
                      text=data,

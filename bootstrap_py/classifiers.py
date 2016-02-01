@@ -10,14 +10,19 @@ class Classifiers(object):
     url = 'https://pypi.python.org/pypi?%3Aaction=list_classifiers'
     prefix_status = 'Development Status :: '
     prefix_lic = 'License :: OSI Approved :: '
+    timeout = 3.000
 
     def __init__(self):
         """Initialize."""
-        self.resp = requests.get(self.url)
+        try:
+            self.resp_text = requests.get(self.url, timeout=self.timeout).text
+        except requests.exceptions.ConnectionError:
+            with open('bootstrap_py/data/classifiers.txt') as fobj:
+                self.resp_text = fobj.read()
 
     def status(self):
         """Development status."""
-        return {self._acronym_status(l): l for l in self.resp.text.split('\n')
+        return {self._acronym_status(l): l for l in self.resp_text.split('\n')
                 if l.startswith(self.prefix_status)}
 
     @staticmethod
@@ -27,7 +32,7 @@ class Classifiers(object):
 
     def licenses(self):
         """OSI Approved license."""
-        return {self._acronym_lic(l): l for l in self.resp.text.split('\n')
+        return {self._acronym_lic(l): l for l in self.resp_text.split('\n')
                 if l.startswith(self.prefix_lic)}
 
     def _acronym_lic(self, license_statement):
