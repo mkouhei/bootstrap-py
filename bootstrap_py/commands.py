@@ -78,6 +78,7 @@ def main():
         pkg_data = control.PackageData(args)
         pkg_tree = control.PackageTree(pkg_data)
         pkg_tree.generate()
+        pkg_tree.move()
     except RuntimeError as exc:
         sys.stderr.write(exc)
         sys.exit(1)

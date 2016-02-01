@@ -5,7 +5,6 @@ import os
 import shutil
 import tempfile
 from glob import glob
-from filecmp import dircmp
 from datetime import datetime
 from mock import patch
 import requests_mock
@@ -175,13 +174,11 @@ class PackageTreeTests(unittest.TestCase):
         self.assertEqual(len([i for i in glob('docs/source/modules/*')
                               if os.path.isfile(i)]), 1)
 
-    def test_copy(self):
-        """copy source directory to destination directory."""
-        self.pkg_tree.copy()
-        dcmp = dircmp(self.pkg_tree.tmpdir, self.testdir)
-        self.assertListEqual(dcmp.left_only, [])
-        self.assertListEqual(dcmp.right_only, ['foo'])
-        self.assertTrue(len(dcmp.common) == 0)
+    def test_move(self):
+        """move source directory to destination directory."""
+        self.pkg_tree.move()
+        self.assertFalse(os.path.isdir(self.pkg_tree.tmpdir))
+        self.assertTrue(os.path.isdir(self.testdir))
 
     @patch('subprocess.call')
     def test_generate(self, _mock):
