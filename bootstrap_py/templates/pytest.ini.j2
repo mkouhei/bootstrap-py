@@ -7,4 +7,8 @@ addopts =
         --cov {{ name }}
         --cov-report=term
         --cov-report=html
-#flakes-ignore =
+pep8ignore =
+        setup.py ALL
+        docs/source/conf.py ALL
+flakes-ignore =
+        docs/source/conf.py ALL
