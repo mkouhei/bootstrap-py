@@ -35,3 +35,42 @@ Features
   * `PyChecker <http://pychecker.sourceforge.net/>`_
   * `pep257 <https://github.com/GreenSteam/pep257/>`_
 * Auto generating documentation with the `Sphinx <http://www.sphinx-doc.org/en/stable/>`_.
+
+Usage
+=====
+
+Install bootstrap-py
+--------------------
+::
+
+   $ virtualenv venv
+   $ . venv/bin/activate
+   (venv)$ pip install bootstrap-py
+
+Generate Python package
+-----------------------
+::
+
+   (venv)$ bootstrap-py -a 'Your author name' -e 'your-author-email@example.org' -u 'https://your-package-website.example.org' -o '/path/to/package-dir' -l 'select-the-license' 'your-package-name'
+   (venv)$ deactivate
+   $ cd /path/to/package-dir
+   $ ls
+   MANIFEST.in  docs     pytest.ini  setup.py  utils
+   README.rst   libneta  setup.cfg   tox.ini
+
+Using tox
+---------
+::
+
+   $ pip install --user tox
+   $ tox
+   (omit)
+   _______________________________________ summary ______________________________________
+   py27: commands succeeded
+   py34: commands succeeded
+   py35: commands succeeded
+   pypy: commands succeeded
+   pep257: commands succeeded
+   docs: commands succeeded
+   pychecker: commands succeeded
+   congratulations :)
