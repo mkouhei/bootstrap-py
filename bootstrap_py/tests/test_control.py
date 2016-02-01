@@ -183,7 +183,7 @@ class PackageTreeTests(unittest.TestCase):
         self.assertListEqual(dcmp.right_only, ['foo'])
         self.assertTrue(len(dcmp.common) == 0)
 
-    @patch('subprocess.Popen')
+    @patch('subprocess.call')
     def test_generate(self, _mock):
         """generate directories, and files."""
         popen_mock = _mock.return_value
