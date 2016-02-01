@@ -120,6 +120,8 @@ class PackageTree(object):
 
     def copy(self):
         """Copy directory from working directory to output directory."""
+        if not os.path.isdir(self.outdir):
+            os.makedirs(self.outdir)
         shutil.copytree(self.tmpdir, os.path.join(self.outdir, self.name))
 
     def clean(self):
