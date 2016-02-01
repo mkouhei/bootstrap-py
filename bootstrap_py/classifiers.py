@@ -12,7 +12,7 @@ class Classifiers(object):
     url = 'https://pypi.python.org/pypi?%3Aaction=list_classifiers'
     prefix_status = 'Development Status :: '
     prefix_lic = 'License :: OSI Approved :: '
-    timeout = 3.000
+    timeout = 5.000
 
     def __init__(self):
         """Initialize."""
