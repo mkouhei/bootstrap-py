@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 """bootstrap_py.classifiers."""
+import os
 import re
 import requests
+from bootstrap_py import __file__
 
 
 class Classifiers(object):
@@ -17,7 +19,9 @@ class Classifiers(object):
         try:
             self.resp_text = requests.get(self.url, timeout=self.timeout).text
         except requests.exceptions.ConnectionError:
-            with open('bootstrap_py/data/classifiers.txt') as fobj:
+            file_path = os.path.abspath(os.path.join(os.path.dirname(__file__),
+                                                     'data/classifiers.txt'))
+            with open(file_path) as fobj:
                 self.resp_text = fobj.read()
 
     def status(self):
