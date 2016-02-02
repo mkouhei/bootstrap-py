@@ -6,9 +6,6 @@ import argparse
 from bootstrap_py import control, __version__
 from bootstrap_py.classifiers import Classifiers
 
-# ToDo:
-# * Genarete Sphinx documentation
-
 
 def setoption(parser, keyword, metadata=None):
     """Set argument parser option."""
