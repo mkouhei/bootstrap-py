@@ -1,4 +1,4 @@
-Welcome to bootstrap_py's documentation!
+Welcome to bootstrap-py's documentation!
 ========================================
 
 Contents:
