@@ -20,6 +20,7 @@ import os
 import sys
 from setuptools import setup
 from setuptools.command.test import test as TestCommand
+from bootstrap_py import __version__
 
 
 class Tox(TestCommand):
@@ -87,7 +88,7 @@ with open('extras_requirement.txt', 'w') as _file:
     _file.write('\n'.join(extras_require.get('reST')))
 
 setup(name='bootstrap-py',
-      version='0.1.1',
+      version=__version__,
       description='Bootstrap Python package',
       long_description=long_description,
       author='Kouhei Maeda',
