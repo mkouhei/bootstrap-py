@@ -2,4 +2,7 @@
 ignore=setup.py,docs/source/conf.py
 
 [MESSAGES CONTROL]
-#disable=
+disable=
+    import-error,
+    undefined-variable,
+    wrong-import-order
