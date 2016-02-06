@@ -3,7 +3,7 @@
 import os
 import sys
 import argparse
-from bootstrap_py import control, __version__
+from bootstrap_py import control, pypi, __version__
 from bootstrap_py.classifiers import Classifiers
 
 
@@ -72,6 +72,11 @@ def main():
     try:
         metadata = Classifiers()
         args = parse_options(metadata)
+        if pypi.package_existent(args.name):
+            msg = ('[error] "{0}" is registered already in PyPI.\n'
+                   '\tSpecify another package name.\n').format(args.name)
+            sys.stderr.write(msg)
+            sys.exit(1)
         pkg_data = control.PackageData(args)
         pkg_tree = control.PackageTree(pkg_data)
         pkg_tree.generate()
