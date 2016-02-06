@@ -5,6 +5,7 @@ import sys
 import argparse
 from bootstrap_py import control, pypi, __version__
 from bootstrap_py.classifiers import Classifiers
+from bootstrap_py.exceptions import BackendFailure
 
 
 def setoption(parser, keyword, metadata=None):
@@ -81,8 +82,8 @@ def main():
         pkg_tree = control.PackageTree(pkg_data)
         pkg_tree.generate()
         pkg_tree.move()
-    except RuntimeError as exc:
-        sys.stderr.write(exc)
+    except (RuntimeError, BackendFailure) as exc:
+        sys.stderr.write('{0}\n'.format(exc))
         sys.exit(1)
 
 
