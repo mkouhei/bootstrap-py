@@ -3,10 +3,10 @@
 import unittest
 import json
 import sys
+import socket
 import mock
 from bootstrap_py import pypi, exceptions
 if sys.version_info < (3, 0):
-    import socket
     import xmlrpclib as xmlrpc_client
 else:
     from xmlrpc import client as xmlrpc_client
@@ -72,6 +72,14 @@ class PyPITests(unittest.TestCase):
         else:
             # pylint: disable=undefined-variable
             _mock.side_effect = ConnectionRefusedError
+        with self.assertRaises(exceptions.BackendFailure):
+            pypi.package_existent('py-deps')
+
+    @mock.patch('bootstrap_py.pypi.search_package')
+    def test_pypi_interface_down(self, _mock):
+        """pypi interface down."""
+        # pylint: disable=undefined-variable
+        _mock.side_effect = socket.gaierror
         with self.assertRaises(exceptions.BackendFailure):
             pypi.package_existent('py-deps')
 

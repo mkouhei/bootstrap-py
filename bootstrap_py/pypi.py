@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 """bootstrap_py.pypi."""
 import sys
+import socket
 from bootstrap_py.exceptions import BackendFailure
 if sys.version_info < (3, 0):
-    import socket
     import xmlrpclib as xmlrpc_client
 else:
     from xmlrpc import client as xmlrpc_client
@@ -17,12 +17,14 @@ def package_existent(name):
     if sys.version_info < (3, 0):
         try:
             result = search_package(name)
-        except (socket.error, xmlrpc_client.ProtocolError) as exc:
+        except (socket.error,
+                xmlrpc_client.ProtocolError) as exc:
             raise BackendFailure(exc)
     else:
         try:
             result = search_package(name)
-        except (TimeoutError,
+        except (socket.gaierror,
+                TimeoutError,
                 ConnectionRefusedError,
                 xmlrpc_client.ProtocolError) as exc:
             raise BackendFailure(exc)
