@@ -8,41 +8,32 @@ from bootstrap_py.classifiers import Classifiers
 from bootstrap_py.exceptions import BackendFailure
 
 
-def setoption(parser, keyword, metadata=None):
+def setoption(parser, metadata=None):
     """Set argument parser option."""
-    if keyword == 'version':
-        parser.add_argument('-v', '--version', action='version',
-                            version=__version__)
-    elif keyword == 'name':
-        parser.add_argument('name',
-                            help='Specify Python package name.')
-    elif keyword == 'description':
-        parser.add_argument('-d', '--description', action='store',
-                            help='Short description about your package.')
-    elif keyword == 'author':
-        parser.add_argument('-a', '--author', action='store',
-                            required=True,
-                            help='Python package author name.')
-    elif keyword == 'author_email':
-        parser.add_argument('-e', '--email', action='store',
-                            required=True,
-                            help='Python package author email address.')
-    elif keyword == 'username':
-        parser.add_argument('-U', '--username', action='store',
-                            help='Specify GitHub username')
-    elif keyword == 'url':
-        parser.add_argument('-u', '--url', action='store',
-                            help='Python package homepage url.')
-    elif keyword == 'license':
-        parser.add_argument('-l', '--license',
-                            choices=metadata.licenses().keys(),
-                            default='GPLv3+',
-                            help='Specify license.')
-    elif keyword == 'status':
-        parser.add_argument('-s', '--status',
-                            choices=metadata.status().keys(),
-                            default='Alpha',
-                            help='Specify development status.')
+    parser.add_argument('-v', '--version', action='version',
+                        version=__version__)
+    parser.add_argument('name',
+                        help='Specify Python package name.')
+    parser.add_argument('-d', '--description', action='store',
+                        help='Short description about your package.')
+    parser.add_argument('-a', '--author', action='store',
+                        required=True,
+                        help='Python package author name.')
+    parser.add_argument('-e', '--email', action='store',
+                        required=True,
+                        help='Python package author email address.')
+    parser.add_argument('-U', '--username', action='store',
+                        help='Specify GitHub username')
+    parser.add_argument('-u', '--url', action='store',
+                        help='Python package homepage url.')
+    parser.add_argument('-l', '--license',
+                        choices=metadata.licenses().keys(),
+                        default='GPLv3+',
+                        help='Specify license.')
+    parser.add_argument('-s', '--status',
+                        choices=metadata.status().keys(),
+                        default='Alpha',
+                        help='Specify development status.')
 
 
 def set_default_options(parser):
@@ -55,15 +46,7 @@ def set_default_options(parser):
 def parse_options(metadata):
     """setup options."""
     parser = argparse.ArgumentParser(description='usage')
-    setoption(parser, 'version')
-    setoption(parser, 'name')
-    setoption(parser, 'description')
-    setoption(parser, 'author')
-    setoption(parser, 'author_email')
-    setoption(parser, 'username')
-    setoption(parser, 'url')
-    setoption(parser, 'license', metadata=metadata)
-    setoption(parser, 'status', metadata=metadata)
+    setoption(parser, metadata=metadata)
     set_default_options(parser)
     return parser.parse_args()
 

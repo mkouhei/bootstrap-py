@@ -41,7 +41,7 @@ class CommandsTests(unittest.TestCase):
 
     def test_setoption_version(self):
         """parser add_argument version."""
-        commands.setoption(self.parser, 'version')
+        commands.setoption(self.parser, Classifiers())
         with self.assertRaises(SystemExit) as exc:
             self.parser.parse_args('-v'.split())
         self.assertEqual(0, exc.exception.code)
@@ -57,68 +57,36 @@ class CommandsTests(unittest.TestCase):
         self.assertEqual(2, exc.exception.code)
         self.assertTrue(sys.stderr.getvalue())
 
-    def test_setoption_name(self):
-        """parse argument name."""
-        commands.setoption(self.parser, 'name')
+    def test_setoption_minimum(self):
+        """parse argument minimum."""
+        commands.setoption(self.parser, Classifiers())
+        args = '-a "Alice Forest" -e alice@example.org -U alice foo'
         self.assertEqual('foo',
-                         self.parser.parse_args('foo'.split()).name)
+                         self.parser.parse_args(shlex.split(args)).name)
+        self.assertEqual('Alice Forest',
+                         self.parser.parse_args(shlex.split(args)).author)
+        self.assertEqual('alice@example.org',
+                         self.parser.parse_args(shlex.split(args)).email)
+        self.assertEqual('alice',
+                         self.parser.parse_args(shlex.split(args)).username)
 
-    def test_setoption_author(self):
-        """parse argument author."""
-        commands.setoption(self.parser, 'author')
-        self.assertEqual(
-            'Alice Forest',
-            self.parser.parse_args(shlex.split('-a "Alice Forest"')).author)
-
-    def test_setoption_author_email(self):
-        """parse argument email."""
-        commands.setoption(self.parser, 'author_email')
-        self.assertEqual(
-            'alice@example.org',
-            self.parser.parse_args(shlex.split('-e alice@example.org')).email)
-
-    def test_setoption_description(self):
-        """parse argument description."""
-        commands.setoption(self.parser, 'description')
-        self.assertEqual(
-            'short description.',
-            self.parser.parse_args(
-                shlex.split('-d "short description."')).description)
-
-    def test_setoption_url(self):
-        """parse argument url."""
-        commands.setoption(self.parser, 'url')
-        self.assertEqual(
-            'http://example.org',
-            self.parser.parse_args(shlex.split('-u http://example.org')).url)
-
-    def test_setoption_username(self):
-        """parse argument username."""
-        commands.setoption(self.parser, 'username')
-        self.assertEqual(
-            'alice',
-            self.parser.parse_args(shlex.split('-U alice')).username)
-
-    def test_setoption_status(self):
-        """parse argument status."""
-        commands.setoption(self.parser, 'status', metadata=self.metadata)
-        self.assertEqual(
-            'Alpha',
-            self.parser.parse_args(shlex.split('-s Alpha')).status)
-
-    def test_setoption_license(self):
-        """parse argument license."""
-        commands.setoption(self.parser, 'license', metadata=self.metadata)
-        self.assertEqual(
-            'GPLv3+',
-            self.parser.parse_args(shlex.split('-l GPLv3+')).license)
-
-    def test_setoption_default_options(self):
-        """parse argument default options."""
-        commands.set_default_options(self.parser)
-        self.assertEqual(
-            '/path/to/outdir',
-            self.parser.parse_args(shlex.split('-o /path/to/outdir')).outdir)
+    def test_setoption_with_extras(self):
+        """parse argument extras."""
+        commands.setoption(self.parser, Classifiers())
+        args = ('-a "Alice Forest" -e alice@example.org -U alice '
+                '-l LGPLv3+ -s Beta foo')
+        self.assertEqual('foo',
+                         self.parser.parse_args(shlex.split(args)).name)
+        self.assertEqual('Alice Forest',
+                         self.parser.parse_args(shlex.split(args)).author)
+        self.assertEqual('alice@example.org',
+                         self.parser.parse_args(shlex.split(args)).email)
+        self.assertEqual('alice',
+                         self.parser.parse_args(shlex.split(args)).username)
+        self.assertEqual('LGPLv3+',
+                         self.parser.parse_args(shlex.split(args)).license)
+        self.assertEqual('Beta',
+                         self.parser.parse_args(shlex.split(args)).status)
 
     def test_main_fail_to_parse(self):
         """main fail."""
