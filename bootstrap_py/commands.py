@@ -22,10 +22,6 @@ def setoption(parser, metadata=None):
     parser.add_argument('-e', '--email', action='store',
                         required=True,
                         help='Python package author email address.')
-    parser.add_argument('-U', '--username', action='store',
-                        help='Specify GitHub username')
-    parser.add_argument('-u', '--url', action='store',
-                        help='Python package homepage url.')
     parser.add_argument('-l', '--license',
                         choices=metadata.licenses().keys(),
                         default='GPLv3+',
@@ -34,6 +30,11 @@ def setoption(parser, metadata=None):
                         choices=metadata.status().keys(),
                         default='Alpha',
                         help='Specify development status.')
+    group = parser.add_mutually_exclusive_group(required=True)
+    group.add_argument('-U', '--username', action='store',
+                       help='Specify GitHub username.')
+    group.add_argument('-u', '--url', action='store',
+                       help='Python package homepage url.')
 
 
 def set_default_options(parser):
