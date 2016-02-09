@@ -10,36 +10,36 @@ from bootstrap_py.exceptions import BackendFailure
 
 def setoption(parser, metadata=None):
     """Set argument parser option."""
-    parser.add_argument('-v', '--version', action='version',
+    parser.add_argument('-v', action='version',
                         version=__version__)
     parser.add_argument('name',
                         help='Specify Python package name.')
-    parser.add_argument('-d', '--description', action='store',
+    parser.add_argument('-d', dest='description', action='store',
                         help='Short description about your package.')
-    parser.add_argument('-a', '--author', action='store',
+    parser.add_argument('-a', dest='author', action='store',
                         required=True,
                         help='Python package author name.')
-    parser.add_argument('-e', '--email', action='store',
+    parser.add_argument('-e', dest='email', action='store',
                         required=True,
                         help='Python package author email address.')
-    parser.add_argument('-l', '--license',
+    parser.add_argument('-l', dest='license',
                         choices=metadata.licenses().keys(),
                         default='GPLv3+',
                         help='Specify license.')
-    parser.add_argument('-s', '--status',
+    parser.add_argument('-s', dest='status',
                         choices=metadata.status().keys(),
                         default='Alpha',
                         help='Specify development status.')
     group = parser.add_mutually_exclusive_group(required=True)
-    group.add_argument('-U', '--username', action='store',
+    group.add_argument('-U', dest='username', action='store',
                        help='Specify GitHub username.')
-    group.add_argument('-u', '--url', action='store',
+    group.add_argument('-u', dest='url', action='store',
                        help='Python package homepage url.')
 
 
 def set_default_options(parser):
     """default options."""
-    parser.add_argument('-o', '--outdir', action='store',
+    parser.add_argument('-o', dest='outdir', action='store',
                         default=os.path.abspath(os.path.curdir),
                         help='Specify output directory.')
 
