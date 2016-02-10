@@ -42,14 +42,16 @@ class PyPITests(unittest.TestCase):
     def test_package_existent(self, _mock):
         """checking package existent."""
         _mock.return_value = [{'name': 'py-deps'}]
-        self.assertTrue(pypi.package_existent('py-deps'))
+        with self.assertRaises(exceptions.Conflict):
+            pypi.package_existent('py-deps')
 
     @mock.patch('bootstrap_py.pypi.search_package')
     def test_package_existent_duplicate(self, _mock):
         """checking package existent, but this case does not occur."""
         _mock.return_value = [{'name': 'py-deps'},
                               {'name': 'py-deps-dummy'}]
-        self.assertFalse(pypi.package_existent('py-deps'))
+        with self.assertRaises(exceptions.Conflict):
+            pypi.package_existent('py-deps')
 
     @mock.patch('bootstrap_py.pypi.search_package')
     def test_pypi_slow_response(self, _mock):

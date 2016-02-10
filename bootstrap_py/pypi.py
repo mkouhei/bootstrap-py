@@ -2,7 +2,7 @@
 """bootstrap_py.pypi."""
 import sys
 import socket
-from bootstrap_py.exceptions import BackendFailure
+from bootstrap_py.exceptions import BackendFailure, Conflict
 if sys.version_info < (3, 0):
     import xmlrpclib as xmlrpc_client
 else:
@@ -28,7 +28,10 @@ def package_existent(name):
                 ConnectionRefusedError,
                 xmlrpc_client.ProtocolError) as exc:
             raise BackendFailure(exc)
-    return True if len(result) is 1 else False
+    if len(result):
+        msg = ('[error] "{0}" is registered already in PyPI.\n'
+               '\tSpecify another package name.').format(name)
+        raise Conflict(msg)
 
 
 def search_package(name):

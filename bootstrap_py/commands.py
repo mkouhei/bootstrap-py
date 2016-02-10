@@ -5,7 +5,7 @@ import sys
 import argparse
 from bootstrap_py import control, pypi, __version__
 from bootstrap_py.classifiers import Classifiers
-from bootstrap_py.exceptions import BackendFailure
+from bootstrap_py.exceptions import BackendFailure, Conflict
 
 
 def setoption(parser, metadata=None):
@@ -57,16 +57,12 @@ def main():
     try:
         metadata = Classifiers()
         args = parse_options(metadata)
-        if pypi.package_existent(args.name):
-            msg = ('[error] "{0}" is registered already in PyPI.\n'
-                   '\tSpecify another package name.\n').format(args.name)
-            sys.stderr.write(msg)
-            sys.exit(1)
+        pypi.package_existent(args.name)
         pkg_data = control.PackageData(args)
         pkg_tree = control.PackageTree(pkg_data)
         pkg_tree.generate()
         pkg_tree.move()
-    except (RuntimeError, BackendFailure) as exc:
+    except (RuntimeError, BackendFailure, Conflict) as exc:
         sys.stderr.write('{0}\n'.format(exc))
         sys.exit(1)
 
