@@ -16,6 +16,12 @@ class NotFound(Error):
     pass
 
 
+class Conflict(Error):
+    """Confilict."""
+
+    pass
+
+
 class BackendFailure(Error):
     """PyPI service down."""
 
