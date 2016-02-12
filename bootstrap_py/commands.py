@@ -3,7 +3,7 @@
 import os
 import sys
 import argparse
-from bootstrap_py import control, pypi, __version__
+from bootstrap_py import control, pypi, __prog__, __version__
 from bootstrap_py.classifiers import Classifiers
 from bootstrap_py.exceptions import BackendFailure, Conflict
 
@@ -47,7 +47,8 @@ def set_default_options(parser):
 
 def parse_options(metadata):
     """setup options."""
-    parser = argparse.ArgumentParser(description='usage')
+    parser = argparse.ArgumentParser(description='%(prog)s usage:',
+                                     prog=__prog__)
     setoption(parser, metadata=metadata)
     set_default_options(parser)
     return parser.parse_args()
