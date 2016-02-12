@@ -25,11 +25,12 @@ def setoption(parser, metadata=None):
     parser.add_argument('-l', dest='license',
                         choices=metadata.licenses().keys(),
                         default='GPLv3+',
-                        help='Specify license.')
+                        help='Specify license. (default: %(default)s)')
     parser.add_argument('-s', dest='status',
                         choices=metadata.status().keys(),
                         default='Alpha',
-                        help='Specify development status.')
+                        help=('Specify development status. '
+                              '(default: %(default)s)'))
     group = parser.add_mutually_exclusive_group(required=True)
     group.add_argument('-U', dest='username', action='store',
                        help='Specify GitHub username.')
@@ -41,7 +42,7 @@ def set_default_options(parser):
     """default options."""
     parser.add_argument('-o', dest='outdir', action='store',
                         default=os.path.abspath(os.path.curdir),
-                        help='Specify output directory.')
+                        help='Specify output directory. (default: $PWD)')
 
 
 def parse_options(metadata):
