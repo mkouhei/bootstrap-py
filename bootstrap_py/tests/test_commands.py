@@ -60,7 +60,7 @@ class CommandsTests(unittest.TestCase):
     def test_setoption_minimum_username(self):
         """parse argument minimum with username."""
         commands.setoption(self.parser, Classifiers())
-        args = '-a "Alice Forest" -e alice@example.org -U alice foo'
+        args = 'create -a "Alice Forest" -e alice@example.org -U alice foo'
         self.assertEqual('foo',
                          self.parser.parse_args(shlex.split(args)).name)
         self.assertEqual('Alice Forest',
@@ -73,7 +73,7 @@ class CommandsTests(unittest.TestCase):
     def test_setoption_minimum_url(self):
         """parse argument minimum with url."""
         commands.setoption(self.parser, Classifiers())
-        args = ('-a "Alice Forest" -e alice@example.org '
+        args = ('create -a "Alice Forest" -e alice@example.org '
                 '-u http://example.org foo')
         self.assertEqual('foo',
                          self.parser.parse_args(shlex.split(args)).name)
@@ -87,7 +87,7 @@ class CommandsTests(unittest.TestCase):
     def test_setoption_with_extras(self):
         """parse argument extras."""
         commands.setoption(self.parser, Classifiers())
-        args = ('-a "Alice Forest" -e alice@example.org -U alice '
+        args = ('create -a "Alice Forest" -e alice@example.org -U alice '
                 '-l LGPLv3+ -s Beta foo')
         self.assertEqual('foo',
                          self.parser.parse_args(shlex.split(args)).name)
