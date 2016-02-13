@@ -36,10 +36,6 @@ def setoption(parser, metadata=None):
                        help='Specify GitHub username.')
     group.add_argument('-u', dest='url', action='store',
                        help='Python package homepage url.')
-
-
-def set_default_options(parser):
-    """default options."""
     parser.add_argument('-o', dest='outdir', action='store',
                         default=os.path.abspath(os.path.curdir),
                         help='Specify output directory. (default: $PWD)')
@@ -50,7 +46,6 @@ def parse_options(metadata):
     parser = argparse.ArgumentParser(description='%(prog)s usage:',
                                      prog=__prog__)
     setoption(parser, metadata=metadata)
-    set_default_options(parser)
     return parser.parse_args()
 
 
