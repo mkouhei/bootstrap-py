@@ -27,3 +27,10 @@ class ClassifiersTests(unittest.TestCase):
         """respond dict licenses."""
         self.assertEqual(len(self.data.licenses().keys()), 49)
         self.assertEqual(len(self.data.licenses().values()), 49)
+
+    def test_licenses_desc(self):
+        """respond dic licenses description."""
+        self.assertEqual(len(self.data.licenses_desc().keys()), 49)
+        self.assertEqual(len(self.data.licenses_desc().values()), 49)
+        for val in self.data.licenses_desc().values():
+            self.assertTrue(Classifiers.prefix_lic not in val)

@@ -42,6 +42,12 @@ class Classifiers(object):
         return {self._acronym_lic(l): l for l in self.resp_text.split('\n')
                 if l.startswith(self.prefix_lic)}
 
+    def licenses_desc(self):
+        """removed prefix."""
+        return {self._acronym_lic(l): l.split(self.prefix_lic)[1]
+                for l in self.resp_text.split('\n')
+                if l.startswith(self.prefix_lic)}
+
     def _acronym_lic(self, license_statement):
         """convert license acronym."""
         pat = re.compile(r'\(([\w+\W?\s?]+)\)')
