@@ -41,6 +41,9 @@ def setoption(parser, metadata=None):
     create_cmd.add_argument('-o', dest='outdir', action='store',
                             default=os.path.abspath(os.path.curdir),
                             help='Specify output directory. (default: $PWD)')
+    list_cmd = subparsers.add_parser('list')
+    list_cmd.add_argument('-l', dest='licenses', action='store_true',
+                          help='show license choices.')
 
 
 def parse_options(metadata):
@@ -51,11 +54,21 @@ def parse_options(metadata):
     return parser.parse_args()
 
 
+def _pp(dict_data):
+    """pretty print."""
+    for key, val in dict_data.items():
+        # pylint: disable=superfluous-parens
+        print('{0:<11}: {1}'.format(key, val))
+
+
 def main():
     """main function."""
     try:
         metadata = Classifiers()
         args = parse_options(metadata)
+        if args.licenses:
+            _pp(metadata.licenses_desc())
+            sys.exit(0)
         pypi.package_existent(args.name)
         pkg_data = control.PackageData(args)
         pkg_tree = control.PackageTree(pkg_data)
