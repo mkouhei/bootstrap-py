@@ -55,7 +55,9 @@ Generate Python package
 
 Generate your Python package.::
 
-  (venv)$ bootstrap-py -a 'Your author name' -e 'your-author-email@example.org' -u 'https://your-package-website.example.org' -o '/path/to/package-dir' -l 'select-the-license' 'your-package-name'
+  (venv)$ bootstrap-py create -a 'Your author name' -e 'your-author-email@example.org' \
+  -u 'https://your-package-website.example.org' -o '/path/to/package-dir' \
+  -l 'select-the-license' 'your-package-name'
   (venv)$ deactivate
   $ cd /path/to/package-dir
   $ ls
