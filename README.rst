@@ -65,6 +65,19 @@ Generate your Python package.::
   README.rst   libneta  setup.cfg   tox.ini
 
 
+List license choices
+--------------------
+
+List license description choices.::
+
+  (venv)$ bootstrap-py list -l
+  GPL        : GNU General Public License (GPL)
+  CPL        : Common Public License
+  IOSL       : Intel Open Source License
+  GPLv3+     : GNU General Public License v3 or later (GPLv3+)
+  (omit)
+
+
 Using tox
 ---------
 
