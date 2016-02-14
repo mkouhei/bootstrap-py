@@ -51,7 +51,7 @@ def read_content(filepath):
 
 
 classifiers = [
-    "Development Status :: 3 - Alpha",
+    "Development Status :: 4 - Beta",
     "Intended Audience :: Developers",
     "License :: OSI Approved :: "
     "GNU General Public License v3 or later (GPLv3+)",
@@ -64,6 +64,8 @@ classifiers = [
     "Programming Language :: Python :: 3.5",
     "Programming Language :: Python :: Implementation :: CPython",
     "Programming Language :: Python :: Implementation :: PyPy",
+    "Topic :: Software Development",
+    "Topic :: System :: Software Distribution",
 ]
 
 
