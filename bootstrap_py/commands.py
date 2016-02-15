@@ -66,7 +66,7 @@ def main():
     try:
         metadata = Classifiers()
         args = parse_options(metadata)
-        if args.licenses:
+        if hasattr(args, 'licenses'):
             _pp(metadata.licenses_desc())
             sys.exit(0)
         pypi.package_existent(args.name)
