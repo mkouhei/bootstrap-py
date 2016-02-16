@@ -33,6 +33,8 @@ def setoption(parser, metadata=None):
                             default='Alpha',
                             help=('Specify development status. '
                                   '(default: %(default)s)'))
+    create_cmd.add_argument('--no-check', action='store_true',
+                            help='No checking package name in PyPI.')
     group = create_cmd.add_mutually_exclusive_group(required=True)
     group.add_argument('-U', dest='username', action='store',
                        help='Specify GitHub username.')
@@ -69,7 +71,8 @@ def main():
         if hasattr(args, 'licenses'):
             _pp(metadata.licenses_desc())
             sys.exit(0)
-        pypi.package_existent(args.name)
+        if not args.no_check:
+            pypi.package_existent(args.name)
         pkg_data = control.PackageData(args)
         pkg_tree = control.PackageTree(pkg_data)
         pkg_tree.generate()
