@@ -68,6 +68,10 @@ def main():
     try:
         metadata = Classifiers()
         args = parse_options(metadata)
+        repodir = os.path.join(args.outdir, args.name)
+        if os.path.isdir(repodir):
+            raise Conflict(
+                'Package repository "{0}" has already exists.'.format(repodir))
         if hasattr(args, 'licenses'):
             _pp(metadata.licenses_desc())
             sys.exit(0)
