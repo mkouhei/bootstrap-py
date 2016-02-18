@@ -76,7 +76,8 @@ long_description = (
 requires = ['setuptools',
             'Jinja2',
             'Sphinx',
-            'requests']
+            'requests',
+            'GitPython']
 extras_require = {
     'reST': ['Sphinx'],
     }

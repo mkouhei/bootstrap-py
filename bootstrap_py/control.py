@@ -6,6 +6,7 @@ import tempfile
 from datetime import datetime
 from jinja2 import PackageLoader, Environment
 from bootstrap_py.classifiers import Classifiers
+from bootstrap_py.vcs import VCS
 from bootstrap_py.docs import build_sphinx
 
 
@@ -140,3 +141,7 @@ class PackageTree(object):
         self._generate_dirs()
         self._generate_init()
         self._generate_files()
+
+    def vcs_init(self):
+        """Initialize VCS repository."""
+        VCS(os.path.join(self.outdir, self.name), self.pkg_data)

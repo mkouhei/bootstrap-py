@@ -77,6 +77,7 @@ def main():
         pkg_tree = control.PackageTree(pkg_data)
         pkg_tree.generate()
         pkg_tree.move()
+        pkg_tree.vcs_init()
     except (RuntimeError, BackendFailure, Conflict) as exc:
         sys.stderr.write('{0}\n'.format(exc))
         sys.exit(1)
