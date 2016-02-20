@@ -26,6 +26,7 @@ Features
 ========
 
 * Generating Python package.
+* Checking Python package name existence at PyPI.
 * Test and conde checking environment is configured with the `Tox <https://pypi.python.org/pypi/tox>`_, `Pytest <http://pytest.org/latest-ja/>`_, and others.
     
   * `pytest-cov <https://pypi.python.org/pypi/pytest-cov>`_
@@ -35,7 +36,8 @@ Features
   * `PyChecker <http://pychecker.sourceforge.net/>`_
   * `pep257 <https://github.com/GreenSteam/pep257/>`_
 
-* Auto generating documentation with the `Sphinx <http://www.sphinx-doc.org/en/stable/>`_.
+* Generating documentation automatically with the `Sphinx <http://www.sphinx-doc.org/en/stable/>`_.
+* Configuration Git repository, initial commit.
 
 Usage
 =====
