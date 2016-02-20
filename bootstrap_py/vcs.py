@@ -1,44 +1,49 @@
 # -*- coding: utf-8 -*-
 """bootstrap_py.vcs."""
+import os.path
 import git
 
 
+# pylint: disable=too-few-public-methods
 class VCS(object):
     """VCS class."""
 
     def __init__(self, repo_dir, metadata):
         """Initialize."""
         self.metadata = metadata
-        # repo_dir is outdir
-        self.repo = git.Git(repo_dir)
-        self.init()
-        self.config()
-        self.add_index()
-        self.initial_commit()
+        self.repo = git.Repo.init(os.path.join(repo_dir))
+        self._config()
+        self._add_index()
+        self._initial_commit()
         if hasattr(self.metadata, 'username') and self.metadata.username:
-            self.remote_add()
+            self._remote_add()
+        # work around: git.Repo.init write ref to .git/HEAD without line feed.
+        with open(os.path.join(repo_dir, '.git/HEAD')) as fobj:
+            data = fobj.read()
+        if data.rfind('\n') is -1:
+            with open(os.path.join(repo_dir, '.git/HEAD'), 'a') as fobj:
+                fobj.write('\n')
 
-    def init(self):
-        """git init."""
-        self.repo.init()
-
-    def add_index(self):
+    def _add_index(self):
         """git add ."""
-        self.repo.add('.')
+        self.repo.index.add(self.repo.untracked_files)
 
-    def config(self):
+    def _config(self):
         """git config."""
-        self.repo.config('user.name', self.metadata.author)
-        self.repo.config('user.email', self.metadata.email)
+        cfg_wr = self.repo.config_writer()
+        cfg_wr.add_section('user')
+        cfg_wr.set_value('user', 'name', self.metadata.author)
+        cfg_wr.set_value('user', 'email', self.metadata.email)
+        cfg_wr.release()
 
-    def initial_commit(self):
+    def _initial_commit(self):
         """initial commit."""
-        self.repo.commit('-m', 'Initial commit.')
+        self.repo.index.commit('Initial commit.')
 
-    def remote_add(self):
+    def _remote_add(self):
         """git remote add."""
-        self.repo.remote('add',
-                         'origin',
-                         'git@github.com:{username}/{repo}.git'.format(
-                             username=self.metadata.username,
-                             repo=self.metadata.name))
+        self.repo.create_remote(
+            'origin',
+            'git@github.com:{username}/{repo}.git'.format(
+                username=self.metadata.username,
+                repo=self.metadata.name))
