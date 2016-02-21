@@ -1,6 +1,13 @@
 ChangeLog
 =========
 
+0.3.0 (2016-02-21)
+------------------
+
+* git init and initial commit.
+* Adds --no-check option.
+* Fixes list subcommand.
+
 0.2.1 (2016-02-16)
 ------------------
 

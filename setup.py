@@ -65,6 +65,7 @@ classifiers = [
     "Programming Language :: Python :: Implementation :: CPython",
     "Programming Language :: Python :: Implementation :: PyPy",
     "Topic :: Software Development",
+    "Topic :: System :: Archiving :: Packaging",
     "Topic :: System :: Software Distribution",
 ]
 
