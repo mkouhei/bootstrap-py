@@ -68,13 +68,14 @@ def main():
     try:
         metadata = Classifiers()
         args = parse_options(metadata)
+        if hasattr(args, 'licenses'):
+            if args.licenses:
+                _pp(metadata.licenses_desc())
+            sys.exit(0)
         repodir = os.path.join(args.outdir, args.name)
         if os.path.isdir(repodir):
             raise Conflict(
                 'Package repository "{0}" has already exists.'.format(repodir))
-        if hasattr(args, 'licenses'):
-            _pp(metadata.licenses_desc())
-            sys.exit(0)
         if not args.no_check:
             pypi.package_existent(args.name)
         pkg_data = control.PackageData(args)
