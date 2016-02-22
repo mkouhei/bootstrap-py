@@ -13,3 +13,23 @@ References
    :members:
    :show-inheritance:
    :inherited-members:
+
+.. automodule:: bootstrap_py.docs
+   :members:
+   :show-inheritance:
+   :inherited-members:
+
+.. automodule:: bootstrap_py.pypi
+   :members:
+   :show-inheritance:
+   :inherited-members:
+
+.. automodule:: bootstrap_py.vcs
+   :members:
+   :show-inheritance:
+   :inherited-members:
+
+.. automodule:: bootstrap_py.exceptions
+   :members:
+   :show-inheritance:
+   :inherited-members:
