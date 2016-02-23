@@ -14,7 +14,9 @@ from bootstrap_py.docs import build_sphinx
 class PackageData(object):
     """Package meta data class."""
 
+    #: Configured the default "version" of setup.setup().
     default_version = '0.1.0'
+    #: Users should rewrite parameters after they generate Python package.
     warning_message = '##### ToDo: Rewrite me #####'
 
     def __init__(self, args):
@@ -45,17 +47,22 @@ class PackageData(object):
             getattr(self, '_set_param')('description', self.warning_message)
 
     def to_dict(self):
-        """convert to dict."""
+        """Convert the package data to dict."""
         return self.__dict__
 
 
 class PackageTree(object):
     """Package directory tree class."""
 
+    #: Jinja2 template name
     template_name = 'bootstrap_py'
+    #: the suffix name of working directory for generating
     suffix = '-bootstrap-py'
+    #: init filename
     init = '__init__.py'
+    #: default permission
     dir_perm = 0o755
+    #: include directories to packages
     pkg_dirs = ['{name}', '{name}/tests']
 
     def __init__(self, pkg_data):
