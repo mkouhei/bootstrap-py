@@ -8,12 +8,21 @@ if sys.version_info < (3, 0):
 else:
     from xmlrpc import client as xmlrpc_client
 
-
+#: PyPI XML-RPC API url
 PYPI_URL = 'https://pypi.python.org/pypi'
 
 
 def package_existent(name):
-    """search package."""
+    """search package.
+
+    * :class:`bootstrap_py.exceptions.Conflict` exception occurs
+      when user specified name has already existed.
+
+    * :class:`bootstrap_py.exceptions.BackendFailure` exception occurs
+      when PyPI service is down.
+
+    :param str name: package name
+    """
     if sys.version_info < (3, 0):
         try:
             result = search_package(name)
@@ -35,7 +44,13 @@ def package_existent(name):
 
 
 def search_package(name):
-    """search package."""
+    """search package.
+
+    :param str name: package name
+
+    :rtype: list
+    :return: package name list
+    """
     client = xmlrpc_client.ServerProxy(PYPI_URL)
     return [pkg for pkg in client.search({'name': name})
             if pkg.get('name') == name]

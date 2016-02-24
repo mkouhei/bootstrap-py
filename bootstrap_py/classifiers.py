@@ -12,8 +12,11 @@ requests.packages.urllib3.disable_warnings()
 class Classifiers(object):
     """Classifiers."""
 
+    #: list_classifiers url
     url = 'https://pypi.python.org/pypi?%3Aaction=list_classifiers'
+    #: prefix status
     prefix_status = 'Development Status :: '
+    #: prefix licences
     prefix_lic = 'License :: OSI Approved :: '
     timeout = 5.000
 

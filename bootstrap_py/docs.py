@@ -5,7 +5,14 @@ import subprocess
 
 
 def build_sphinx(pkg_data, projectdir):
-    """Building sphinx documentation."""
+    """Building sphinx documentation.
+
+    :rtype: int
+    :return: subprocess.call return code
+
+    :param `bootstrap_py.control.PackageData` pkg_data: package meta data
+    :param str projectdir: project root directory
+    """
     if len(pkg_data.version.rsplit('.', 1)) > 0:
         version = pkg_data.version.rsplit('.', 1)[1]
     else:
