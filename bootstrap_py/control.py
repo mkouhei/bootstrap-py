@@ -1,154 +1,68 @@
 # -*- coding: utf-8 -*-
 """bootstrap_py.control."""
 import os
-import shutil
-import tempfile
-from datetime import datetime
-from jinja2 import PackageLoader, Environment
+import sys
+from bootstrap_py import package, pypi
 from bootstrap_py.classifiers import Classifiers
 from bootstrap_py.vcs import VCS
-from bootstrap_py.docs import build_sphinx
+from bootstrap_py.exceptions import Conflict
 
 
-# pylint: disable=too-few-public-methods
-class PackageData(object):
-    """Package meta data class."""
-
-    #: Configured the default "version" of setup.setup().
-    default_version = '0.1.0'
-    #: Users should rewrite parameters after they generate Python package.
-    warning_message = '##### ToDo: Rewrite me #####'
-
-    def __init__(self, args):
-        """Initialize Package."""
-        self.metadata = Classifiers()
-        if hasattr(args, '__dict__'):
-            for name, value in vars(args).items():
-                self._set_param(name, value)
-        self._check_or_set_default_params()
-
-    def _set_param(self, name, value):
-        """set name:value property to Package object."""
-        if name == 'status':
-            setattr(self, name, self.metadata.status().get(value))
-        elif name == 'license':
-            setattr(self, name, self.metadata.licenses().get(value))
-        else:
-            setattr(self, name, value)
-
-    def _check_or_set_default_params(self):
-        """check key and set default vaule when it does not exists."""
-        if not hasattr(self, 'date'):
-            self._set_param('date', datetime.utcnow().strftime('%Y-%m-%d'))
-        if not hasattr(self, 'version'):
-            self._set_param('version', self.default_version)
-        # pylint: disable=no-member
-        if not hasattr(self, 'description') or self.description is None:
-            getattr(self, '_set_param')('description', self.warning_message)
-
-    def to_dict(self):
-        """Convert the package data to dict."""
-        return self.__dict__
+def _pp(dict_data):
+    """pretty print."""
+    for key, val in dict_data.items():
+        # pylint: disable=superfluous-parens
+        print('{0:<11}: {1}'.format(key, val))
 
 
-class PackageTree(object):
-    """Package directory tree class."""
+def retreive_metadata():
+    """retrieve metadata.
 
-    #: Jinja2 template name
-    template_name = 'bootstrap_py'
-    #: the suffix name of working directory for generating
-    suffix = '-bootstrap-py'
-    #: init filename
-    init = '__init__.py'
-    #: default permission
-    dir_perm = 0o755
-    #: include directories to packages
-    pkg_dirs = ['{name}', '{name}/tests']
+    :rtype: bootstrap_py.classifiers.Classifiers
+    :return Classifiers()
+    """
+    return Classifiers()
 
-    def __init__(self, pkg_data):
-        """Initialize."""
-        self.cwd = os.getcwd()
-        self.name = pkg_data.name
-        self.outdir = os.path.abspath(pkg_data.outdir)
-        self.tmpdir = tempfile.mkdtemp(suffix=self.suffix)
-        self.templates = Environment(loader=PackageLoader(self.template_name))
-        self.pkg_data = pkg_data
 
-    def _modname(self, dir_path):
-        return dir_path.format(name=self.name).replace('/', '.')
+def print_licences(params, metadata):
+    """print licenses.
 
-    def _init_py(self, dir_path):
-        return os.path.join(self.tmpdir,
-                            dir_path.format(name=self.name),
-                            self.init)
+    :param argparse.Namespace params: parameter
+    :param bootstrap_py.classifier.Classifiers metadata: package metadata
+    """
+    if hasattr(params, 'licenses'):
+        if params.licenses:
+            _pp(metadata.licenses_desc())
+        sys.exit(0)
 
-    def _tmpl_path(self, file_path):
-        return os.path.join(self.tmpdir, os.path.splitext(file_path)[0])
 
-    def _generate_dirs(self):
-        dirs = [os.path.dirname(tmpl)
-                for tmpl in self.templates.list_templates()
-                if tmpl.find('/') > -1] + self.pkg_dirs
-        for dir_path in dirs:
-            if not os.path.isdir(
-                    os.path.join(self.tmpdir,
-                                 dir_path.format(name=self.name))):
-                os.makedirs(os.path.join(self.tmpdir,
-                                         dir_path.format(name=self.name)),
-                            self.dir_perm)
+def check_repository_existence(params):
+    """check repository existence.
 
-    def _generate_docs(self):
-        docs_path = os.path.join(self.tmpdir, 'docs')
-        os.makedirs(docs_path)
-        build_sphinx(self.pkg_data, docs_path)
+    :param argparse.Namespace params: parameters
+    """
+    repodir = os.path.join(params.outdir, params.name)
+    if os.path.isdir(repodir):
+        raise Conflict(
+            'Package repository "{0}" has already exists.'.format(repodir))
 
-    def _list_module_dirs(self):
-        return [dir_path for dir_path in self.pkg_dirs
-                if dir_path.find('{name}') == 0]
 
-    def _generate_init(self):
-        tmpl = self.templates.get_template('__init__.py.j2')
+def check_package_existence(params):
+    """check package existence.
 
-        for dir_path in self._list_module_dirs():
-            if not os.path.isfile(self._init_py(dir_path)):
-                with open(self._init_py(dir_path), 'w') as fobj:
-                    # pylint: disable=no-member
-                    fobj.write(
-                        tmpl.render(
-                            module_name=getattr(
-                                self, '_modname')(dir_path)) + '\n')
+    :param argparse.Namespace params: parameters
+    """
+    if not params.no_check:
+        pypi.package_existent(params.name)
 
-    def _generate_files(self):
-        for file_path in self.templates.list_templates():
-            if file_path.endswith('.j2'):
-                if file_path == '__init__.py.j2':
-                    self._generate_init()
-                else:
-                    tmpl = self.templates.get_template(file_path)
-                    with open(self._tmpl_path(file_path), 'w') as fobj:
-                        fobj.write(
-                            tmpl.render(**self.pkg_data.to_dict()) + '\n')
-        os.chdir(self.tmpdir)
-        os.symlink('../../README.rst', 'docs/source/README')
-        os.chdir(self.cwd)
 
-    def move(self):
-        """Move directory from working directory to output directory."""
-        if not os.path.isdir(self.outdir):
-            os.makedirs(self.outdir)
-        shutil.move(self.tmpdir, os.path.join(self.outdir, self.name))
+def generate_package(params):
+    """generate pkackage repository.
 
-    def clean(self):
-        """Clean up working directory."""
-        shutil.rmtree(self.tmpdir)
-
-    def generate(self):
-        """Generate package directory tree."""
-        self._generate_docs()
-        self._generate_dirs()
-        self._generate_init()
-        self._generate_files()
-
-    def vcs_init(self):
-        """Initialize VCS repository."""
-        VCS(os.path.join(self.outdir, self.name), self.pkg_data)
+    :param argparse.Namespace params: parameters
+    """
+    pkg_data = package.PackageData(params)
+    pkg_tree = package.PackageTree(pkg_data)
+    pkg_tree.generate()
+    pkg_tree.move()
+    VCS(os.path.join(pkg_tree.outdir, pkg_tree.name), pkg_tree.pkg_data)

@@ -3,8 +3,7 @@
 import os
 import sys
 import argparse
-from bootstrap_py import control, pypi, __prog__, __version__
-from bootstrap_py.classifiers import Classifiers
+from bootstrap_py import control, __prog__, __version__
 from bootstrap_py.exceptions import BackendFailure, Conflict
 
 
@@ -56,33 +55,15 @@ def parse_options(metadata):
     return parser.parse_args()
 
 
-def _pp(dict_data):
-    """pretty print."""
-    for key, val in dict_data.items():
-        # pylint: disable=superfluous-parens
-        print('{0:<11}: {1}'.format(key, val))
-
-
 def main():
     """main function."""
     try:
-        metadata = Classifiers()
+        metadata = control.retreive_metadata()
         args = parse_options(metadata)
-        if hasattr(args, 'licenses'):
-            if args.licenses:
-                _pp(metadata.licenses_desc())
-            sys.exit(0)
-        repodir = os.path.join(args.outdir, args.name)
-        if os.path.isdir(repodir):
-            raise Conflict(
-                'Package repository "{0}" has already exists.'.format(repodir))
-        if not args.no_check:
-            pypi.package_existent(args.name)
-        pkg_data = control.PackageData(args)
-        pkg_tree = control.PackageTree(pkg_data)
-        pkg_tree.generate()
-        pkg_tree.move()
-        pkg_tree.vcs_init()
+        control.print_licences(args, metadata)
+        control.check_repository_existence(args)
+        control.check_package_existence(args)
+        control.generate_package(args)
     except (RuntimeError, BackendFailure, Conflict) as exc:
         sys.stderr.write('{0}\n'.format(exc))
         sys.exit(1)
