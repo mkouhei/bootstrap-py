@@ -9,6 +9,11 @@ References
    :show-inheritance:
    :inherited-members:
 
+.. automodule:: bootstrap_py.package
+   :members:
+   :show-inheritance:
+   :inherited-members:
+
 .. automodule:: bootstrap_py.classifiers
    :members:
    :show-inheritance:
