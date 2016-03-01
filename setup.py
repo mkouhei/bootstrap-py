@@ -78,6 +78,7 @@ requires = ['setuptools',
             'Jinja2',
             'Sphinx',
             'requests',
+            'defusedxml',
             'GitPython']
 extras_require = {
     'reST': ['Sphinx'],

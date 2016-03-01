@@ -4,6 +4,7 @@ import os
 import sys
 import argparse
 from bootstrap_py import control, __prog__, __version__
+from bootstrap_py.update import Update
 from bootstrap_py.exceptions import BackendFailure, Conflict
 
 
@@ -58,6 +59,9 @@ def parse_options(metadata):
 def main():
     """main function."""
     try:
+        pkg_version = Update()
+        if pkg_version.updatable():
+            pkg_version.show_message()
         metadata = control.retreive_metadata()
         args = parse_options(metadata)
         control.print_licences(args, metadata)

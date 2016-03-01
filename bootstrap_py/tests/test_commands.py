@@ -11,6 +11,7 @@ import six
 import requests_mock
 from bootstrap_py import commands, __version__
 from bootstrap_py.classifiers import Classifiers
+from bootstrap_py.update import Update
 
 
 class CommandsTests(unittest.TestCase):
@@ -109,6 +110,11 @@ class CommandsTests(unittest.TestCase):
                 data = fobj.read()
             mock.get(Classifiers.url,
                      text=data,
+                     status_code=200)
+            with open('bootstrap_py/tests/data/badge.svg') as fobj:
+                svg_data = fobj.read()
+            mock.get(Update.badge_url,
+                     text=svg_data,
                      status_code=200)
             with self.assertRaises(SystemExit) as exc:
                 commands.main()
