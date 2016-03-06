@@ -129,7 +129,7 @@ class PackageTree(object):
                         fobj.write(
                             tmpl.render(**self.pkg_data.to_dict()) + '\n')
         os.chdir(self.tmpdir)
-        os.symlink('../../README.rst', 'docs/source/README')
+        os.symlink('../../README.rst', 'docs/source/README.rst')
         os.chdir(self.cwd)
 
     def move(self):
