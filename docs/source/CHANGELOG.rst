@@ -1,6 +1,13 @@
 ChangeLog
 =========
 
+0.4.0 (2016-03-07)
+------------------
+
+* Adds checking latest version.
+* Fixes Sphinx template bugs.
+* Does some refactoring.
+
 0.3.0 (2016-02-21)
 ------------------
 

@@ -17,6 +17,33 @@ Status
    :target: https://readthedocs.org/projects/bootstrap-py/?badge=latest
    :alt: Documentation Status
 
+Notes
+=====
+
+Genateed package with v0.3.0 or less that has bugs Sphinx documentation.
+Modify the follows manually.
+
+* Fixes ``docs/source/index.rst``::
+
+    diff --git a/docs/source/index.rst b/docs/source/index.rst
+    index b3404ac..d8bdc83 100644
+    --- a/docs/source/index.rst
+    +++ b/docs/source/index.rst
+    @@ -16,8 +16,8 @@ Contents:
+    
+        CHANGELOG
+    
+    - Indices and tables
+    -===================
+    +Indices and tables
+    +==================
+    
+     * :ref:`genindex`
+     * :ref:`modindex`
+
+* Renames ``docs/source/README`` to ``docs/source/README.rst``.
+
+
 Requirements
 ============
 
