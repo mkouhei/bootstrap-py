@@ -1,6 +1,12 @@
 ChangeLog
 =========
 
+0.4.1 (2016-03-07)
+------------------
+
+* Adds exception handler package update.
+* Fixes some docstring.
+
 0.4.0 (2016-03-07)
 ------------------
 
