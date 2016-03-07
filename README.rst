@@ -20,7 +20,7 @@ Status
 Notes
 =====
 
-Genateed package with v0.3.0 or less that has bugs Sphinx documentation.
+Genateed package with v0.4.1 or less that has bugs Sphinx documentation.
 Modify the follows manually.
 
 * Fixes ``docs/source/index.rst``::
@@ -43,6 +43,7 @@ Modify the follows manually.
 
 * Renames ``docs/source/README`` to ``docs/source/README.rst``.
 * Fixes documentation ``version`` in ``docs/source/conf.py``.
+* Fixes ``auth_email``, ``url`` in ``setup.py``.
 
 
 Requirements
