@@ -6,6 +6,12 @@ import sys
 from setuptools import setup
 from setuptools.command.test import test as TestCommand
 
+{% if username -%}
+{% set url='https://github.com/%s/%s'|format(username, name) -%}
+{% else -%}
+{% set url=url -%}
+{% endif -%}
+
 
 class Tox(TestCommand):
     user_options = [('tox-args=', 'a', 'Arguments to pass to tox')]
@@ -73,7 +79,7 @@ setup(name='{{ name }}',
       description='{{ description }}',
       long_description=long_description,
       author='{{ author }}',
-      author_email='{{ author_email }}',
+      author_email='{{ email }}',
       url='{{ url }}',
       classifiers=classifiers,
       packages=['{{ name }}'],

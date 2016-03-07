@@ -89,7 +89,7 @@ class PackageTreeTests(unittest.TestCase):
         params = Dummy()
         setattr(params, 'name', 'foo')
         setattr(params, 'author', 'Alice')
-        setattr(params, 'author_email', 'alice@example.org')
+        setattr(params, 'email', 'alice@example.org')
         setattr(params, 'url', 'https://example.org/foo')
         setattr(params, 'license', 'gplv3')
         setattr(params, 'outdir', self.testdir)
