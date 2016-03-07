@@ -17,7 +17,10 @@ class Update(object):
         self.latest_version = self._latest_version()
 
     def _latest_version(self):
-        resp = requests.get(self.badge_url)
+        try:
+            resp = requests.get(self.badge_url)
+        except requests.exceptions.ConnectionError:
+            return
         element_tree = fromstring(resp.text)
         return element_tree.findall(
             '{ns}g'.format(ns=self.name_space))[1].findall(
