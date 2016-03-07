@@ -1,6 +1,12 @@
 ChangeLog
 =========
 
+0.4.2 (2016-03-08)
+------------------
+
+* Fixes configiratuon version, release.
+* Fixes url, author_email in setup.py.
+
 0.4.1 (2016-03-07)
 ------------------
 
