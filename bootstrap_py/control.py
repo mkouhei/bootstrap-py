@@ -57,7 +57,7 @@ def check_package_existence(params):
 
 
 def generate_package(params):
-    """generate pkackage repository.
+    """generate package repository.
 
     :param argparse.Namespace params: parameters
     """
