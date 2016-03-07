@@ -19,7 +19,7 @@ def retreive_metadata():
     """retrieve metadata.
 
     :rtype: bootstrap_py.classifiers.Classifiers
-    :return Classifiers()
+    :return: Classifiers()
     """
     return Classifiers()
 
