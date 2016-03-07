@@ -42,6 +42,7 @@ Modify the follows manually.
      * :ref:`modindex`
 
 * Renames ``docs/source/README`` to ``docs/source/README.rst``.
+* Fixes documentation ``version`` in ``docs/source/conf.py``.
 
 
 Requirements

@@ -14,7 +14,7 @@ def build_sphinx(pkg_data, projectdir):
     :param str projectdir: project root directory
     """
     if len(pkg_data.version.rsplit('.', 1)) > 0:
-        version = pkg_data.version.rsplit('.', 1)[1]
+        version = pkg_data.version.rsplit('.', 1)[0]
     else:
         version = pkg_data.version
     args = ' '.join(('sphinx-quickstart',
