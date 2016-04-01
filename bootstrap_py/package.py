@@ -61,7 +61,7 @@ class PackageTree(object):
     #: init filename
     init = '__init__.py'
     #: default permission
-    dir_perm = 0o755
+    exec_perm = 0o755
     #: include directories to packages
     pkg_dirs = ['{name}', '{name}/tests']
 
@@ -95,7 +95,7 @@ class PackageTree(object):
                                  dir_path.format(name=self.name))):
                 os.makedirs(os.path.join(self.tmpdir,
                                          dir_path.format(name=self.name)),
-                            self.dir_perm)
+                            self.exec_perm)
 
     def _generate_docs(self):
         docs_path = os.path.join(self.tmpdir, 'docs')
@@ -128,6 +128,9 @@ class PackageTree(object):
                     with open(self._tmpl_path(file_path), 'w') as fobj:
                         fobj.write(
                             tmpl.render(**self.pkg_data.to_dict()) + '\n')
+                        if file_path == 'utils/pre-commit.j2':
+                            os.chmod(self._tmpl_path(file_path),
+                                     self.exec_perm)
         os.chdir(self.tmpdir)
         os.symlink('../../README.rst', 'docs/source/README.rst')
         os.chdir(self.cwd)
