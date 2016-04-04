@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """bootstrap_py.vcs."""
-import os.path
+import os
 import git
 
 
@@ -23,6 +23,10 @@ class VCS(object):
         if data.rfind('\n') is -1:
             with open(os.path.join(repo_dir, '.git/HEAD'), 'a') as fobj:
                 fobj.write('\n')
+
+        # adds pre-commit hook
+        os.symlink('../../utils/pre-commit',
+                   os.path.join(repo_dir, '.git/hooks/pre-commit'))
 
     def _add_index(self):
         """git add ."""
