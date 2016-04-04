@@ -20,13 +20,14 @@ Status
 Notes
 =====
 
-v0.4.2
+v0.4.3
 ------
 
-Generated package with v0.4.2 that has bugs pre-commit hook script.
+Generated package with v0.4.3 that has bugs pre-commit hook script.
 Modify the follows manually.::
 
   $ chmod +x utils/pre-commit
+  $ ln -s ../../utils/pre-commit .git/hooks/pre-commit
 
 
 v0.4.1
