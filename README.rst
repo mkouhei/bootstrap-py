@@ -20,7 +20,19 @@ Status
 Notes
 =====
 
-Genateed package with v0.4.1 or less that has bugs Sphinx documentation.
+v0.4.2
+------
+
+Generated package with v0.4.2 that has bugs pre-commit hook script.
+Modify the follows manually.::
+
+  $ chmod +x utils/pre-commit
+
+
+v0.4.1
+------
+
+Genarated package with v0.4.1 or less that has bugs Sphinx documentation.
 Modify the follows manually.
 
 * Fixes ``docs/source/index.rst``::
