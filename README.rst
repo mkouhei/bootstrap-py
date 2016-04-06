@@ -27,6 +27,7 @@ Generated package with v0.4.4 or less that has bugs tox.ini configuration file.
 Modify the follows manually.
 
 * Fixes `your_package_name` with snake case.
+Modify the follows manually.::
 
   diff --git a/tox.ini b/tox.ini
   index a9d823f..db825cc 100644
