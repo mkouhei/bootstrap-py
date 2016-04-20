@@ -20,6 +20,31 @@ Status
 Notes
 =====
 
+v0.4.6
+------
+
+Generated package with v0.4.5 or less that has bugs .travis.yml configuration file.
+Modify the follows manually.::
+
+  diff --git a/.travis.yml b/.travis.yml
+  index ab128da..600125e 100644
+  --- a/.travis.yml
+  +++ b/.travis.yml
+  @@ -14,6 +14,11 @@ after_success:
+     - coveralls --verbose
+  
+   matrix:
+  +  allow_failures:
+  +    - env: TOX_ENV=py27
+  +    - env: TOX_ENV=py33
+  +    - env: TOX_ENV=py34
+  +    - env: TOX_ENV=pypy
+     include:
+  -    python: 3.5
+  -    env: TOX_ENV=py35
+  +    - python: 3.5
+  +      env: TOX_ENV=py35
+
 v0.4.5
 ------
 
