@@ -14,6 +14,11 @@ after_success:
   - coveralls --verbose
 
 matrix:
+  allow_failures:
+    - env: TOX_ENV=py27
+    - env: TOX_ENV=py33
+    - env: TOX_ENV=py34
+    - env: TOX_ENV=pypy
   include:
-    python: 3.5
-    env: TOX_ENV=py35
+    - python: 3.5
+      env: TOX_ENV=py35
