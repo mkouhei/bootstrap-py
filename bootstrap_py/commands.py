@@ -2,6 +2,7 @@
 """bootstrap_py.commands."""
 import os
 import sys
+import re
 import argparse
 from bootstrap_py import control, __prog__, __version__
 from bootstrap_py.update import Update
@@ -38,7 +39,7 @@ def setoption(parser, metadata=None):
     group = create_cmd.add_mutually_exclusive_group(required=True)
     group.add_argument('-U', dest='username', action='store',
                        help='Specify GitHub username.')
-    group.add_argument('-u', dest='url', action='store',
+    group.add_argument('-u', dest='url', action='store', type=valid_url,
                        help='Python package homepage url.')
     create_cmd.add_argument('-o', dest='outdir', action='store',
                             default=os.path.abspath(os.path.curdir),
@@ -46,6 +47,26 @@ def setoption(parser, metadata=None):
     list_cmd = subparsers.add_parser('list')
     list_cmd.add_argument('-l', dest='licenses', action='store_true',
                           help='show license choices.')
+
+
+def valid_url(url):
+    """validate url.
+
+    :rtype: str
+    :return: url
+
+    :param str url: package homepage url.
+    """
+    regex = re.compile(
+        r'^(?:http)s?://'
+        r'(?:(?:[A-Z0-9](?:[A-Z0-9-]{0,61}[A-Z0-9])?\.)+'
+        r'(?:[A-Z]{2,6}\.?|[A-Z0-9-]{2,}\.?)|'
+        r'\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})'
+        r'(?::\d+)?'
+        r'(?:/?|[/?]\S+)$', re.IGNORECASE)
+    if not regex.match(url):
+        raise argparse.ArgumentTypeError('"{0}" is invalid url.'.format(url))
+    return url
 
 
 def parse_options(metadata):

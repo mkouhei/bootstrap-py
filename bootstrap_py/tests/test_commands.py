@@ -85,6 +85,15 @@ class CommandsTests(unittest.TestCase):
         self.assertEqual('http://example.org',
                          self.parser.parse_args(shlex.split(args)).url)
 
+    def test_setoption_invalid_url(self):
+        """parse argument minimum with url."""
+        commands.setoption(self.parser, Classifiers())
+        args = ('create -a "Alice Forest" -e alice@example.org '
+                '-u http://example foo')
+        with self.assertRaises(SystemExit) as exc:
+            self.parser.parse_args(shlex.split(args))
+        self.assertEqual(2, exc.exception.code)
+
     def test_setoption_with_extras(self):
         """parse argument extras."""
         commands.setoption(self.parser, Classifiers())
