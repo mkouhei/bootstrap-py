@@ -1,6 +1,12 @@
 ChangeLog
 =========
 
+0.4.7 (2016-04-24)
+------------------
+
+* Adds url validator.
+* Adds long description checker.
+
 0.4.6 (2016-04-21)
 ------------------
 
