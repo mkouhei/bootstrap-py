@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 """bootstrap_py.docs."""
+import os.path
 import shlex
 import subprocess
 
@@ -35,4 +36,13 @@ def build_sphinx(pkg_data, projectdir):
                                              version=version,
                                              release=pkg_data.version,
                                              projectdir=projectdir)
-    return subprocess.call(shlex.split(args))
+    if subprocess.call(shlex.split(args)) is 0:
+        _touch_gitkeep(projectdir)
+
+
+def _touch_gitkeep(docs_path):
+    with open(os.path.join(docs_path,
+                           'source',
+                           '_static',
+                           '.gitkeep'), 'w') as fobj:
+        fobj.write('')
