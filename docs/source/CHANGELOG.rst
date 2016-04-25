@@ -1,6 +1,12 @@
 ChangeLog
 =========
 
+0.4.8 (2016-04-25)
+------------------
+
+* Fixes warning of build sphinx without docs/source/_static directory.
+* Unsupports IP address url.
+
 0.4.7 (2016-04-24)
 ------------------
 
