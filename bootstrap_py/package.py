@@ -149,7 +149,6 @@ class PackageTree(object):
         """Generate package directory tree."""
         self._generate_docs()
         self._generate_dirs()
-        self._generate_init()
         self._generate_files()
 
     def vcs_init(self):
