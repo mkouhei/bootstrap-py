@@ -42,6 +42,12 @@ class CommandsTests(unittest.TestCase):
 
     def test_setoption_version(self):
         """parser add_argument version."""
+        with requests_mock.Mocker() as mock:
+            with open('bootstrap_py/data/classifiers.txt') as fobj:
+                data = fobj.read()
+            mock.get(Classifiers.url,
+                     text=data,
+                     status_code=200)
         commands.setoption(self.parser, Classifiers())
         with self.assertRaises(SystemExit) as exc:
             self.parser.parse_args('-v'.split())
@@ -73,6 +79,12 @@ class CommandsTests(unittest.TestCase):
 
     def test_setoption_minimum_url(self):
         """parse argument minimum with url."""
+        with requests_mock.Mocker() as mock:
+            with open('bootstrap_py/data/classifiers.txt') as fobj:
+                data = fobj.read()
+            mock.get(Classifiers.url,
+                     text=data,
+                     status_code=200)
         commands.setoption(self.parser, Classifiers())
         args = ('create -a "Alice Forest" -e alice@example.org '
                 '-u http://example.org foo')
@@ -87,6 +99,12 @@ class CommandsTests(unittest.TestCase):
 
     def test_setoption_invalid_url(self):
         """parse argument minimum with url."""
+        with requests_mock.Mocker() as mock:
+            with open('bootstrap_py/data/classifiers.txt') as fobj:
+                data = fobj.read()
+            mock.get(Classifiers.url,
+                     text=data,
+                     status_code=200)
         commands.setoption(self.parser, Classifiers())
         args = ('create -a "Alice Forest" -e alice@example.org '
                 '-u http://example foo')
@@ -96,6 +114,12 @@ class CommandsTests(unittest.TestCase):
 
     def test_setoption_with_extras(self):
         """parse argument extras."""
+        with requests_mock.Mocker() as mock:
+            with open('bootstrap_py/data/classifiers.txt') as fobj:
+                data = fobj.read()
+            mock.get(Classifiers.url,
+                     text=data,
+                     status_code=200)
         commands.setoption(self.parser, Classifiers())
         args = ('create -a "Alice Forest" -e alice@example.org -U alice '
                 '-l LGPLv3+ -s Beta foo')
