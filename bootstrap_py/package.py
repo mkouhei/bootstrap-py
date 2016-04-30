@@ -139,8 +139,7 @@ class PackageTree(object):
             g(self._generate_exec_file, f == 'utils/pre-commit.j2', (f,)),
             g(self._generate_file, params=(f,))))
         for file_path in self.templates.list_templates():
-            if file_path.endswith('.j2'):
-                generator(file_path)
+            generator(file_path)
         os.chdir(self.tmpdir)
         os.symlink('../../README.rst', 'docs/source/README.rst')
         os.chdir(self.cwd)
