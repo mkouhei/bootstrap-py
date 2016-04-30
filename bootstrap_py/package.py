@@ -5,6 +5,8 @@ import shutil
 import tempfile
 from datetime import datetime
 from jinja2 import PackageLoader, Environment
+from pguard import guard
+from pguard import guard_cl as g
 from bootstrap_py.classifiers import Classifiers
 from bootstrap_py.vcs import VCS
 from bootstrap_py.docs import build_sphinx
@@ -117,20 +119,28 @@ class PackageTree(object):
                         tmpl.render(
                             module_name=getattr(
                                 self, '_modname')(dir_path)) + '\n')
+        return True
+
+    def _generate_file(self, file_path):
+        tmpl = self.templates.get_template(file_path)
+        with open(self._tmpl_path(file_path), 'w') as fobj:
+            fobj.write(
+                tmpl.render(**self.pkg_data.to_dict()) + '\n')
+        return True
+
+    def _generate_exec_file(self, file_path):
+        self._generate_file(file_path)
+        os.chmod(self._tmpl_path(file_path), self.exec_perm)
+        return True
 
     def _generate_files(self):
+        generator = (lambda f: guard(
+            g(self._generate_init, f == '__init__.py.j2'),
+            g(self._generate_exec_file, f == 'utils/pre-commit.j2', (f,)),
+            g(self._generate_file, params=(f,))))
         for file_path in self.templates.list_templates():
             if file_path.endswith('.j2'):
-                if file_path == '__init__.py.j2':
-                    self._generate_init()
-                else:
-                    tmpl = self.templates.get_template(file_path)
-                    with open(self._tmpl_path(file_path), 'w') as fobj:
-                        fobj.write(
-                            tmpl.render(**self.pkg_data.to_dict()) + '\n')
-                        if file_path == 'utils/pre-commit.j2':
-                            os.chmod(self._tmpl_path(file_path),
-                                     self.exec_perm)
+                generator(file_path)
         os.chdir(self.tmpdir)
         os.symlink('../../README.rst', 'docs/source/README.rst')
         os.chdir(self.cwd)

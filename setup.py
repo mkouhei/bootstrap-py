@@ -79,6 +79,7 @@ requires = ['setuptools',
             'Sphinx',
             'requests',
             'defusedxml',
+            'pguard',
             'GitPython']
 extras_require = {
     'reST': ['Sphinx'],
