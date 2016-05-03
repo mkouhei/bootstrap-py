@@ -20,7 +20,7 @@ class Update(object):
         try:
             resp = requests.get(self.badge_url)
         except requests.exceptions.ConnectionError:
-            return
+            return '0.0.0'
         element_tree = fromstring(resp.text)
         return element_tree.findall(
             '{ns}g'.format(ns=self.name_space))[1].findall(
