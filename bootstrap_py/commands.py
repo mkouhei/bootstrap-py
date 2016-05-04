@@ -36,6 +36,8 @@ def setoption(parser, metadata=None):
                                   '(default: %(default)s)'))
     create_cmd.add_argument('--no-check', action='store_true',
                             help='No checking package name in PyPI.')
+    create_cmd.add_argument('--with-samples', action='store_true',
+                            help='Generate package with sample code.')
     group = create_cmd.add_mutually_exclusive_group(required=True)
     group.add_argument('-U', dest='username', action='store',
                        help='Specify GitHub username.')

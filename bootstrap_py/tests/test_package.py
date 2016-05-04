@@ -93,6 +93,7 @@ class PackageTreeTests(unittest.TestCase):
         setattr(params, 'url', 'https://example.org/foo')
         setattr(params, 'license', 'gplv3')
         setattr(params, 'outdir', self.testdir)
+        setattr(params, 'with_samples', True)
         with requests_mock.Mocker() as mock:
             with open('bootstrap_py/data/classifiers.txt') as fobj:
                 data = fobj.read()
@@ -113,7 +114,7 @@ class PackageTreeTests(unittest.TestCase):
         self.assertEqual(self.pkg_tree.name, 'foo')
         self.assertEqual(self.pkg_tree.outdir, self.testdir)
         self.assertTrue(os.path.isdir(self.pkg_tree.tmpdir))
-        self.assertEqual(len(self.pkg_tree.templates.list_templates()), 16)
+        self.assertEqual(len(self.pkg_tree.templates.list_templates()), 18)
         self.assertEqual(self.pkg_tree.pkg_data, self.pkg_data)
 
     def test_mod_name(self):
@@ -167,6 +168,27 @@ class PackageTreeTests(unittest.TestCase):
                               if os.path.isfile(i)]), 6)
         self.assertEqual(len([i for i in glob('./.*')
                               if os.path.isfile(i)]), 5)
+        self.assertEqual(len([i for i in glob('utils/*')
+                              if os.path.isfile(i)]), 1)
+        self.assertEqual(len([i for i in glob('docs/source/*')
+                              if os.path.isfile(i)]), 3)
+        self.assertEqual(len([i for i in glob('docs/source/modules/*')
+                              if os.path.isfile(i)]), 1)
+
+    def test_generate_files_samples(self):
+        """generate files."""
+        self.pkg_data.with_samples = True
+        getattr(self.pkg_tree, '_generate_dirs')()
+        getattr(self.pkg_tree, '_generate_files')()
+        os.chdir(self.pkg_tree.tmpdir)
+        self.assertEqual(len([i for i in glob('./*')
+                              if os.path.isfile(i)]), 6)
+        self.assertEqual(len([i for i in glob('./.*')
+                              if os.path.isfile(i)]), 5)
+        self.assertEqual(len([i for i in glob('foo/*')
+                              if os.path.isfile(i)]), 2)
+        self.assertEqual(len([i for i in glob('foo/tests/*')
+                              if os.path.isfile(i)]), 2)
         self.assertEqual(len([i for i in glob('utils/*')
                               if os.path.isfile(i)]), 1)
         self.assertEqual(len([i for i in glob('docs/source/*')

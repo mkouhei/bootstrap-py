@@ -84,6 +84,11 @@ class PackageTree(object):
                             dir_path.format(name=self.name),
                             self.init)
 
+    def _sample_py(self, file_path):
+        return os.path.join(self.tmpdir,
+                            self.name,
+                            os.path.splitext(file_path)[0])
+
     def _tmpl_path(self, file_path):
         return os.path.join(self.tmpdir, os.path.splitext(file_path)[0])
 
@@ -133,10 +138,28 @@ class PackageTree(object):
         os.chmod(self._tmpl_path(file_path), self.exec_perm)
         return True
 
+    def _generate_samples(self, file_path):
+        if not self.pkg_data.with_samples:
+            return
+        tmpl = self.templates.get_template(file_path)
+        if file_path == 'sample.py.j2':
+            with open(self._sample_py(file_path), 'w') as fobj:
+                fobj.write(
+                    tmpl.render(
+                        **self.pkg_data.to_dict()) + '\n')
+        elif file_path == 'test_sample.py.j2':
+            with open(self._sample_py(os.path.join('tests',
+                                                   file_path)), 'w') as fobj:
+                fobj.write(
+                    tmpl.render(
+                        **self.pkg_data.to_dict()) + '\n')
+        return True
+
     def _generate_files(self):
         generator = (lambda f: guard(
             g(self._generate_init, f == '__init__.py.j2'),
             g(self._generate_exec_file, f == 'utils/pre-commit.j2', (f,)),
+            g(self._generate_samples, f.endswith('sample.py.j2'), (f,)),
             g(self._generate_file, params=(f,))))
         for file_path in self.templates.list_templates():
             generator(file_path)
