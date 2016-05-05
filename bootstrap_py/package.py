@@ -35,6 +35,9 @@ class PackageData(object):
             setattr(self, name, self.metadata.status().get(value))
         elif name == 'license':
             setattr(self, name, self.metadata.licenses().get(value))
+        elif name == 'name':
+            setattr(self, name, value)
+            setattr(self, 'module_name', value.replace('-', '_'))
         else:
             setattr(self, name, value)
 
@@ -65,7 +68,7 @@ class PackageTree(object):
     #: default permission
     exec_perm = 0o755
     #: include directories to packages
-    pkg_dirs = ['{name}', '{name}/tests']
+    pkg_dirs = ['{module_name}', '{module_name}/tests']
 
     def __init__(self, pkg_data):
         """Initialize."""
@@ -76,17 +79,14 @@ class PackageTree(object):
         self.templates = Environment(loader=PackageLoader(self.template_name))
         self.pkg_data = pkg_data
 
-    def _modname(self, dir_path):
-        return dir_path.format(name=self.name).replace('/', '.')
-
     def _init_py(self, dir_path):
         return os.path.join(self.tmpdir,
-                            dir_path.format(name=self.name),
+                            dir_path.format(**self.pkg_data.to_dict()),
                             self.init)
 
     def _sample_py(self, file_path):
         return os.path.join(self.tmpdir,
-                            self.name,
+                            self.pkg_data.module_name,
                             os.path.splitext(file_path)[0])
 
     def _tmpl_path(self, file_path):
@@ -99,9 +99,10 @@ class PackageTree(object):
         for dir_path in dirs:
             if not os.path.isdir(
                     os.path.join(self.tmpdir,
-                                 dir_path.format(name=self.name))):
+                                 dir_path.format(**self.pkg_data.to_dict()))):
                 os.makedirs(os.path.join(self.tmpdir,
-                                         dir_path.format(name=self.name)),
+                                         dir_path.format(
+                                             **self.pkg_data.to_dict())),
                             self.exec_perm)
 
     def _generate_docs(self):
@@ -111,7 +112,7 @@ class PackageTree(object):
 
     def _list_module_dirs(self):
         return [dir_path for dir_path in self.pkg_dirs
-                if dir_path.find('{name}') == 0]
+                if dir_path.find('{module_name}') == 0]
 
     def _generate_init(self):
         tmpl = self.templates.get_template('__init__.py.j2')
@@ -121,9 +122,7 @@ class PackageTree(object):
                 with open(self._init_py(dir_path), 'w') as fobj:
                     # pylint: disable=no-member
                     fobj.write(
-                        tmpl.render(
-                            module_name=getattr(
-                                self, '_modname')(dir_path)) + '\n')
+                        tmpl.render(**self.pkg_data.to_dict()) + '\n')
         return True
 
     def _generate_file(self, file_path):

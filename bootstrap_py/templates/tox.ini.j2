@@ -49,7 +49,7 @@ basepython = pypy
 [testenv:pep257]
 deps=
     pep257
-commands = pep257 {{ name }}
+commands = pep257 {{ module_name }}
 basepython = python3.5
 
 [testenv:docs]
@@ -62,4 +62,4 @@ commands = python setup.py build_sphinx
 deps=
     http://sourceforge.net/projects/pychecker/files/latest/download#egg=PyChecker
 basepython = python2.7
-commands = pychecker -F {{ name }}/*.py
+commands = pychecker -F {{ module_name }}/*.py

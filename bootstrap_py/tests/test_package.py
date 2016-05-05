@@ -117,13 +117,6 @@ class PackageTreeTests(unittest.TestCase):
         self.assertEqual(len(self.pkg_tree.templates.list_templates()), 18)
         self.assertEqual(self.pkg_tree.pkg_data, self.pkg_data)
 
-    def test_mod_name(self):
-        """convert path to module name."""
-        self.assertEqual(getattr(self.pkg_tree, '_modname')('bar'), 'bar')
-        self.assertEqual(getattr(self.pkg_tree, '_modname')('{name}'), 'foo')
-        self.assertEqual(getattr(self.pkg_tree, '_modname')('{name}/tests'),
-                         'foo.tests')
-
     def test_init_py(self):
         """convert __init__.py path."""
         self.assertEqual(getattr(self.pkg_tree, '_init_py')('foo/bar'),
@@ -140,16 +133,17 @@ class PackageTreeTests(unittest.TestCase):
         """generate directories."""
         getattr(self.pkg_tree, '_generate_dirs')()
         os.chdir(self.pkg_tree.tmpdir)
-        self.assertTrue(os.path.isdir(self.pkg_tree.name))
-        self.assertTrue(os.path.isdir(os.path.join(self.pkg_tree.name,
-                                                   'tests')))
+        self.assertTrue(os.path.isdir(self.pkg_tree.pkg_data.module_name))
+        self.assertTrue(os.path.isdir(
+            os.path.join(self.pkg_tree.pkg_data.module_name,
+                         'tests')))
         self.assertTrue(os.path.isdir('utils'))
         self.assertTrue(os.path.isdir('docs/source/modules'))
 
     def test_list_module_dirs(self):
         """list module directories."""
         self.assertEqual(getattr(self.pkg_tree, '_list_module_dirs')(),
-                         ['{name}', '{name}/tests'])
+                         ['{module_name}', '{module_name}/tests'])
 
     def test_generate_init(self):
         """generate __init__.py."""
