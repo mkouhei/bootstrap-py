@@ -17,96 +17,6 @@ Status
    :target: https://readthedocs.org/projects/bootstrap-py/?badge=latest
    :alt: Documentation Status
 
-Notes
-=====
-
-v0.4.6
-------
-
-Generated package with v0.4.5 or less that has bugs .travis.yml configuration file.
-Modify the follows manually.::
-
-  diff --git a/.travis.yml b/.travis.yml
-  index ab128da..600125e 100644
-  --- a/.travis.yml
-  +++ b/.travis.yml
-  @@ -14,6 +14,11 @@ after_success:
-     - coveralls --verbose
-  
-   matrix:
-  +  allow_failures:
-  +    - env: TOX_ENV=py27
-  +    - env: TOX_ENV=py33
-  +    - env: TOX_ENV=py34
-  +    - env: TOX_ENV=pypy
-     include:
-  -    python: 3.5
-  -    env: TOX_ENV=py35
-  +    - python: 3.5
-  +      env: TOX_ENV=py35
-
-v0.4.5
-------
-
-Generated package with v0.4.4 or less that has bugs tox.ini configuration file.
-Modify the follows manually.
-
-* Fixes `your_package_name` with snake case. Modify the follows manually.::
-
-    diff --git a/tox.ini b/tox.ini
-    index a9d823f..db825cc 100644
-    --- a/tox.ini
-    +++ b/tox.ini
-    @@ -49,7 +49,7 @@ basepython = pypy
-    [testenv:pep257]
-    deps=
-        pep257
-    -commands = pep257 bootstrap_py
-    +commands = pep257 your_package_name
-    basepython = python3.5
-    
-    [testenv:docs]
-
-
-v0.4.4
-------
-
-Generated package with v0.4.3 or less that has bugs pre-commit hook script.
-Modify the follows manually.::
-
-  $ chmod +x utils/pre-commit
-  $ ln -s ../../utils/pre-commit .git/hooks/pre-commit
-
-
-v0.4.2
-------
-
-Genarated package with v0.4.1 or less that has bugs Sphinx documentation.
-Modify the follows manually.
-
-* Fixes ``docs/source/index.rst``::
-
-    diff --git a/docs/source/index.rst b/docs/source/index.rst
-    index b3404ac..d8bdc83 100644
-    --- a/docs/source/index.rst
-    +++ b/docs/source/index.rst
-    @@ -16,8 +16,8 @@ Contents:
-    
-        CHANGELOG
-    
-    - Indices and tables
-    -===================
-    +Indices and tables
-    +==================
-    
-     * :ref:`genindex`
-     * :ref:`modindex`
-
-* Renames ``docs/source/README`` to ``docs/source/README.rst``.
-* Fixes documentation ``version`` in ``docs/source/conf.py``.
-* Fixes ``auth_email``, ``url`` in ``setup.py``.
-
-
 Requirements
 ============
 
@@ -128,6 +38,7 @@ Features
 
 * Generating documentation automatically with the `Sphinx <http://www.sphinx-doc.org/en/stable/>`_.
 * Configuration Git repository, initial commit.
+* Generate sample code using ``--with-samples`` option.
 
 Usage
 =====
