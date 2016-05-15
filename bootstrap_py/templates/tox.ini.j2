@@ -10,7 +10,7 @@ envlist =
 
 [testenv]
 commands =
-    py.test --pylint --pylint-rcfile={toxinidir}/.pylintrc
+    py.test --pylint --pylint-rcfile={toxinidir}/.pylintrc {{ module_name }}
 
 [py]
 deps=
