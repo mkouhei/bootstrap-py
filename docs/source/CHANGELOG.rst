@@ -1,6 +1,41 @@
 ChangeLog
 =========
 
+0.5.1 (2016-05-17)
+------------------
+
+* Adds ``--doctest-modules`` option.
+* Fixes pylint option argument.
+* Removes doctest exception sample.
+
+Changes follows when enable doctest-modules.::
+    
+  diff --git a/pytest.ini b/pytest.ini
+  index 635a7f9..15cc929 100644
+  --- a/pytest.ini
+  +++ b/pytest.ini
+  @@ -7,6 +7,7 @@ addopts =
+           --cov your_package_name
+           --cov-report=term
+           --cov-report=html
+  +        --doctest-modules
+   pep8ignore =
+           setup.py ALL
+           docs/source/conf.py ALL
+  diff --git a/tox.ini b/tox.ini
+  index 141d468..b8c1f32 100644
+  --- a/tox.ini
+  +++ b/tox.ini
+  @@ -10,7 +10,7 @@ envlist =
+   
+   [testenv]
+   commands =
+  -    py.test --pylint --pylint-rcfile={toxinidir}/.pylintrc
+  +    py.test --pylint --pylint-rcfile={toxinidir}/.pylintrc your_package_name
+   
+   [py]
+   deps=
+
 0.5.0 (2016-05-07)
 ------------------
 
