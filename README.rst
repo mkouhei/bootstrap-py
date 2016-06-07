@@ -28,9 +28,9 @@ Features
 * Generating Python package.
 * Checking Python package name existence at PyPI.
 * Test and conde checking environment is configured with the `Tox <https://pypi.python.org/pypi/tox>`_, `Pytest <http://pytest.org/latest-ja/>`_, and others.
-    
+
+  * `pycodestyle <https://pypi.python.org/pypi/pycodestyle>`_
   * `pytest-cov <https://pypi.python.org/pypi/pytest-cov>`_
-  * `pytest-pep8 <https://pypi.python.org/pypi/pytest-pep8>`_
   * `pytest-flakes <https://pypi.python.org/pypi/pytest-flakes>`_
   * `Pylint <http://www.pylint.org/>`_
   * `PyChecker <http://pychecker.sourceforge.net/>`_
