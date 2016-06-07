@@ -1,15 +1,11 @@
 [pytest]
 addopts =
         -v
-        --pep8
         --flakes
         --random
         --cov {{ module_name }}
         --cov-report=term
         --cov-report=html
         --doctest-modules
-pep8ignore =
-        setup.py ALL
-        docs/source/conf.py ALL
 flakes-ignore =
         docs/source/conf.py ALL
