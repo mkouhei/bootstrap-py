@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 """bootstrap_py.tests.test_classifiers."""
 import unittest
-import requests_mock
 from bootstrap_py.classifiers import Classifiers
+from bootstrap_py.tests.stub import stub_request_metadata
 
 
 class ClassifiersTests(unittest.TestCase):
@@ -10,13 +10,7 @@ class ClassifiersTests(unittest.TestCase):
 
     def setUp(self):
         """Prepare test data."""
-        with requests_mock.Mocker() as mock:
-            with open('bootstrap_py/data/classifiers.txt') as fobj:
-                data = fobj.read()
-            mock.get(Classifiers.url,
-                     text=data,
-                     status_code=200)
-            self.data = Classifiers()
+        self.data = stub_request_metadata()
 
     def test_status(self):
         """respond dict status."""
