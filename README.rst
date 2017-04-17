@@ -50,7 +50,7 @@ Install bootstrap-py::
 
   $ virtualenv venv
   $ . venv/bin/activate
-  (venv)$ pip install bootstrap-py
+  (venv)$ python -m pip install bootstrap-py
 
 
 Generate Python package
