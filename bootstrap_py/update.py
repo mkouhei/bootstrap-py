@@ -29,9 +29,10 @@ class Update(object):
     def updatable(self):
         """bootstrap-py package updatable?."""
         if self.latest_version > self.current_version:
-            return self.latest_version
+            updatable_version = self.latest_version
         else:
-            return False
+            updatable_version = False
+        return updatable_version
 
     def show_message(self):
         """Show message updatable."""
