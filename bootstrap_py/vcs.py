@@ -20,7 +20,7 @@ class VCS(object):
         # work around: git.Repo.init write ref to .git/HEAD without line feed.
         with open(os.path.join(repo_dir, '.git/HEAD')) as fobj:
             data = fobj.read()
-        if data.rfind('\n') is -1:
+        if data.rfind('\n') == -1:
             with open(os.path.join(repo_dir, '.git/HEAD'), 'a') as fobj:
                 fobj.write('\n')
 
