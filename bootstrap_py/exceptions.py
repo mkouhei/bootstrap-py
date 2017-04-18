@@ -5,9 +5,7 @@
 class Error(Exception):
     """Base error class."""
 
-    def __init__(self, message=None):
-        """Initialize."""
-        super(Error, self).__init__(message)
+    pass
 
 
 class NotFound(Error):
