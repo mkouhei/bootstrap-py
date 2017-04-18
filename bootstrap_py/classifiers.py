@@ -57,10 +57,11 @@ class Classifiers(object):
         if pat.search(license_statement):
             lic = pat.search(license_statement).group(1)
             if lic.startswith('CNRI'):
-                return lic[:4]
+                acronym_licence = lic[:4]
             else:
-                return lic.replace(' ', '')
+                acronym_licence = lic.replace(' ', '')
         else:
-            return ''.join(
+            acronym_licence = ''.join(
                 [w[0]
                  for w in license_statement.split(self.prefix_lic)[1].split()])
+        return acronym_licence

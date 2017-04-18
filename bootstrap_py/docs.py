@@ -14,9 +14,9 @@ def build_sphinx(pkg_data, projectdir):
     :param `bootstrap_py.control.PackageData` pkg_data: package meta data
     :param str projectdir: project root directory
     """
-    if len(pkg_data.version.rsplit('.', 1)) > 0:
-        version = pkg_data.version.rsplit('.', 1)[0]
-    else:
+    try:
+        version, _minor_version = pkg_data.version.rsplit('.', 1)
+    except ValueError:
         version = pkg_data.version
     args = ' '.join(('sphinx-quickstart',
                      '--sep',

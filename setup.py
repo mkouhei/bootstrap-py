@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Copyright (C) 2016 Kouhei Maeda <mkouhei@palmtb.net>
+Copyright (C) 2016, 2017 Kouhei Maeda <mkouhei@palmtb.net>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -86,12 +86,6 @@ extras_require = {
     }
 if os.environ.get('READTHEDOCS', None):
     extras_require['reST'].append('recommonmark')
-
-with open('requirements.txt', 'w') as _file:
-    _file.write('\n'.join(requires))
-
-with open('extras_requirement.txt', 'w') as _file:
-    _file.write('\n'.join(extras_require.get('reST')))
 
 setup(name=__prog__,
       version=__version__,

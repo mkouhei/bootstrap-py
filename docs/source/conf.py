@@ -49,7 +49,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = 'bootstrap-py'
-copyright = '2016, Kouhei Maeda <mkouhei@palmtb.net>'
+copyright = '2016, 2017, Kouhei Maeda <mkouhei@palmtb.net>'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the

@@ -37,7 +37,7 @@ def package_existent(name):
                 ConnectionRefusedError,
                 xmlrpc_client.ProtocolError) as exc:
             raise BackendFailure(exc)
-    if len(result):
+    if result:
         msg = ('[error] "{0}" is registered already in PyPI.\n'
                '\tSpecify another package name.').format(name)
         raise Conflict(msg)
