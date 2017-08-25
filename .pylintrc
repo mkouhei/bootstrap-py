@@ -5,4 +5,5 @@ ignore=setup.py,docs/source/conf.py
 disable=
     import-error,
     undefined-variable,
-    wrong-import-order
+    wrong-import-order,
+    no-member
