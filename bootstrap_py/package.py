@@ -139,7 +139,7 @@ class PackageTree(object):
 
     def _generate_samples(self, file_path):
         if not self.pkg_data.with_samples:
-            return
+            return False
         tmpl = self.templates.get_template(file_path)
         if file_path == 'sample.py.j2':
             with open(self._sample_py(file_path), 'w') as fobj:
