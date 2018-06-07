@@ -46,7 +46,8 @@ class CommandsTests(unittest.TestCase):
     def test_parse_options_fail(self):
         """fail parse options."""
         with self.assertRaises(SystemExit) as exc:
-            commands.parse_options(self.metadata)
+            parser = commands.parse_options(self.metadata)
+            parser.parse_args()
         self.assertEqual(2, exc.exception.code)
         self.assertTrue(sys.stderr.getvalue())
 

@@ -74,7 +74,7 @@ def parse_options(metadata):
     parser = argparse.ArgumentParser(description='%(prog)s usage:',
                                      prog=__prog__)
     setoption(parser, metadata=metadata)
-    return parser.parse_args()
+    return parser
 
 
 def main():
@@ -84,7 +84,12 @@ def main():
         if pkg_version.updatable():
             pkg_version.show_message()
         metadata = control.retreive_metadata()
-        args = parse_options(metadata)
+        parser = parse_options(metadata)
+        argvs = sys.argv
+        if len(argvs) <= 1:
+            parser.print_help()
+            sys.exit(1)
+        args = parser.parse_args()
         control.print_licences(args, metadata)
         control.check_repository_existence(args)
         control.check_package_existence(args)
