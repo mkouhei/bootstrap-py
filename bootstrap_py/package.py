@@ -30,7 +30,7 @@ class PackageData:
         self._check_or_set_default_params()
 
     def _set_param(self, name, value):
-        """set name:value property to Package object."""
+        """Set name:value property to Package object."""
         if name == 'status':
             setattr(self, name, self.metadata.status().get(value))
         elif name == 'license':
@@ -42,7 +42,7 @@ class PackageData:
             setattr(self, name, value)
 
     def _check_or_set_default_params(self):
-        """check key and set default vaule when it does not exists."""
+        """Check key and set default vaule when it does not exists."""
         if not hasattr(self, 'date'):
             self._set_param('date', datetime.utcnow().strftime('%Y-%m-%d'))
         if not hasattr(self, 'version'):

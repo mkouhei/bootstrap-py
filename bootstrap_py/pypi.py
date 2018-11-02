@@ -13,7 +13,7 @@ PYPI_URL = 'https://pypi.python.org/pypi'
 
 
 def package_existent(name):
-    """search package.
+    """Search package.
 
     * :class:`bootstrap_py.exceptions.Conflict` exception occurs
       when user specified name has already existed.
@@ -44,7 +44,7 @@ def package_existent(name):
 
 
 def search_package(name):
-    """search package.
+    """Search package.
 
     :param str name: package name
 

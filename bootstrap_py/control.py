@@ -9,14 +9,14 @@ from bootstrap_py.exceptions import Conflict
 
 
 def _pp(dict_data):
-    """pretty print."""
+    """Pretty print."""
     for key, val in dict_data.items():
         # pylint: disable=superfluous-parens
         print('{0:<11}: {1}'.format(key, val))
 
 
 def retreive_metadata():
-    """retrieve metadata.
+    """Retrieve metadata.
 
     :rtype: bootstrap_py.classifiers.Classifiers
     :return: Classifiers()
@@ -25,7 +25,7 @@ def retreive_metadata():
 
 
 def print_licences(params, metadata):
-    """print licenses.
+    """Print licenses.
 
     :param argparse.Namespace params: parameter
     :param bootstrap_py.classifier.Classifiers metadata: package metadata
@@ -37,7 +37,7 @@ def print_licences(params, metadata):
 
 
 def check_repository_existence(params):
-    """check repository existence.
+    """Check repository existence.
 
     :param argparse.Namespace params: parameters
     """
@@ -48,7 +48,7 @@ def check_repository_existence(params):
 
 
 def check_package_existence(params):
-    """check package existence.
+    """Check package existence.
 
     :param argparse.Namespace params: parameters
     """
@@ -57,7 +57,7 @@ def check_package_existence(params):
 
 
 def generate_package(params):
-    """generate package repository.
+    """Generate package repository.
 
     :param argparse.Namespace params: parameters
     """
