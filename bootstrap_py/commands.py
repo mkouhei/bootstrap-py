@@ -52,7 +52,7 @@ def setoption(parser, metadata=None):
 
 
 def valid_url(url):
-    """validate url.
+    """Validate url.
 
     :rtype: str
     :return: url
@@ -70,7 +70,7 @@ def valid_url(url):
 
 
 def parse_options(metadata):
-    """setup options."""
+    """Parse argument options."""
     parser = argparse.ArgumentParser(description='%(prog)s usage:',
                                      prog=__prog__)
     setoption(parser, metadata=metadata)
@@ -78,7 +78,7 @@ def parse_options(metadata):
 
 
 def main():
-    """main function."""
+    """Execute main processes."""
     try:
         pkg_version = Update()
         if pkg_version.updatable():

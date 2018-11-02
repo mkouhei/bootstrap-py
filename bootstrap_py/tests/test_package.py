@@ -12,7 +12,7 @@ from bootstrap_py.tests.stub import stub_request_metadata
 
 
 # pylint: disable=too-few-public-methods
-class Dummy(object):
+class Dummy:
     """Dummy class."""
     pass
 
@@ -42,6 +42,7 @@ class PackageDataTests(unittest.TestCase):
         self.assertEqual(pkg_data.baz, 'fuga')
         self.assertEqual(pkg_data.date, datetime.utcnow().strftime('%Y-%m-%d'))
         self.assertEqual(pkg_data.version, '0.1.0')
+        # pylint: disable=fixme
         self.assertEqual(pkg_data.description, '##### ToDo: Rewrite me #####')
 
     def test_provides_default_params(self):

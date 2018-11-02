@@ -9,7 +9,7 @@ from bootstrap_py import __file__
 requests.packages.urllib3.disable_warnings()
 
 
-class Classifiers(object):
+class Classifiers:
     """Classifiers."""
 
     #: list_classifiers url
@@ -37,7 +37,7 @@ class Classifiers(object):
 
     @staticmethod
     def _acronym_status(status_statement):
-        """convert development status acronym."""
+        """Convert development status acronym."""
         return status_statement.split(' - ')[1]
 
     def licenses(self):
@@ -46,13 +46,13 @@ class Classifiers(object):
                 if l.startswith(self.prefix_lic)}
 
     def licenses_desc(self):
-        """removed prefix."""
+        """Remove prefix."""
         return {self._acronym_lic(l): l.split(self.prefix_lic)[1]
                 for l in self.resp_text.split('\n')
                 if l.startswith(self.prefix_lic)}
 
     def _acronym_lic(self, license_statement):
-        """convert license acronym."""
+        """Convert license acronym."""
         pat = re.compile(r'\(([\w+\W?\s?]+)\)')
         if pat.search(license_statement):
             lic = pat.search(license_statement).group(1)

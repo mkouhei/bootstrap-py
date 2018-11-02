@@ -6,7 +6,7 @@ from bootstrap_py.update import Update
 
 
 def stub_request_metadata(badge=False):
-    """stub request classifiers, badge."""
+    """Stub request classifiers, badge."""
     if badge:
         with requests_mock.Mocker() as mock:
             with open('bootstrap_py/tests/data/badge.svg') as fobj:

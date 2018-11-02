@@ -6,7 +6,7 @@ import subprocess
 
 
 def build_sphinx(pkg_data, projectdir):
-    """Building sphinx documentation.
+    """Build sphinx documentation.
 
     :rtype: int
     :return: subprocess.call return code

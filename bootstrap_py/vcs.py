@@ -5,7 +5,7 @@ import git
 
 
 # pylint: disable=too-few-public-methods
-class VCS(object):
+class VCS:
     """VCS class."""
 
     def __init__(self, repo_dir, metadata):
@@ -29,11 +29,11 @@ class VCS(object):
                    os.path.join(repo_dir, '.git/hooks/pre-commit'))
 
     def _add_index(self):
-        """git add ."""
+        """Execute git add ."""
         self.repo.index.add(self.repo.untracked_files)
 
     def _config(self):
-        """git config."""
+        """Execute git config."""
         cfg_wr = self.repo.config_writer()
         cfg_wr.add_section('user')
         cfg_wr.set_value('user', 'name', self.metadata.author)
@@ -41,11 +41,11 @@ class VCS(object):
         cfg_wr.release()
 
     def _initial_commit(self):
-        """initial commit."""
+        """Initialize commit."""
         self.repo.index.commit('Initial commit.')
 
     def _remote_add(self):
-        """git remote add."""
+        """Execute git remote add."""
         self.repo.create_remote(
             'origin',
             'git@github.com:{username}/{repo}.git'.format(
