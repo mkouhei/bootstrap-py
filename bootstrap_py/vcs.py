@@ -5,7 +5,7 @@ import git
 
 
 # pylint: disable=too-few-public-methods
-class VCS(object):
+class VCS:
     """VCS class."""
 
     def __init__(self, repo_dir, metadata):

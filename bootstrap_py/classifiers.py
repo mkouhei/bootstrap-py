@@ -9,7 +9,7 @@ from bootstrap_py import __file__
 requests.packages.urllib3.disable_warnings()
 
 
-class Classifiers(object):
+class Classifiers:
     """Classifiers."""
 
     #: list_classifiers url

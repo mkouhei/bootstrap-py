@@ -5,7 +5,7 @@ from defusedxml.ElementTree import fromstring
 from bootstrap_py import __version__
 
 
-class Update(object):
+class Update:
     """bootstrap-py updata checker."""
 
     badge_url = 'https://img.shields.io/pypi/v/bootstrap-py.svg'

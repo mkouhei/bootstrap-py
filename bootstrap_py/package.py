@@ -13,13 +13,13 @@ from bootstrap_py.docs import build_sphinx
 
 
 # pylint: disable=too-few-public-methods
-class PackageData(object):
+class PackageData:
     """Package meta data class."""
 
     #: Configured the default "version" of setup.setup().
     default_version = '0.1.0'
     #: Users should rewrite parameters after they generate Python package.
-    warning_message = '##### ToDo: Rewrite me #####'
+    warning_message = '##### ToDo: Rewrite me #####'  # pylint: disable=fixme
 
     def __init__(self, args):
         """Initialize Package."""
@@ -56,7 +56,7 @@ class PackageData(object):
         return self.__dict__
 
 
-class PackageTree(object):
+class PackageTree:
     """Package directory tree class."""
 
     #: Jinja2 template name
