@@ -20,7 +20,7 @@ Status
 Requirements
 ============
 
-* Python 2.7 over or Python 3.3 over or PyPy 2.4.0 over
+* Python 3.5 over
 
 Features
 ========
@@ -33,8 +33,7 @@ Features
   * `pytest-cov <https://pypi.python.org/pypi/pytest-cov>`_
   * `pytest-flakes <https://pypi.python.org/pypi/pytest-flakes>`_
   * `Pylint <http://www.pylint.org/>`_
-  * `PyChecker <http://pychecker.sourceforge.net/>`_
-  * `pep257 <https://github.com/GreenSteam/pep257/>`_
+  * `pydocstyle <https://pypi.org/project/pydocstyle/>`_
 
 * Generating documentation automatically with the `Sphinx <http://www.sphinx-doc.org/en/stable/>`_.
 * Configuration Git repository, initial commit.
@@ -90,12 +89,10 @@ Running test with tox::
   $ tox
   (omit)
   _______________________________________ summary ______________________________________
-  py27: commands succeeded
-  py34: commands succeeded
   py35: commands succeeded
-  pypy: commands succeeded
-  pep257: commands succeeded
+  py36: commands succeeded
+  pycodetyle: commands succeeded
+  pydocstyle: commands succeeded
   docs: commands succeeded
-  pychecker: commands succeeded
   congratulations :)
 
