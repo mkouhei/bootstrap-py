@@ -5,18 +5,18 @@ from {{ module_name }} import sample
 
 
 class SampleTests(unittest.TestCase):
-    """{{ module_name }}.sample tests."""
+    """Tests {{ module_name }}.sample."""
 
     def test_hello(self):
-        """hello() test."""
+        """Hello() test."""
         self.assertEqual(sample.hello('Alice'), 'Hello, Alice.')
 
     def test_bmi(self):
-        """bmi test."""
+        """Bmi test."""
         self.assertTrue(18.5 <= sample.bmi(1.68, 67.0) < 25)
 
     def test_bmi_zero_devide(self):
-        """bmi zero devide."""
+        """Bmi zero devide."""
         with self.assertRaises(ZeroDivisionError) as exc:
             sample.bmi(0, 67.0)
         if sys.version_info < (3, 0):

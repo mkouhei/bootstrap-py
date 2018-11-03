@@ -1,10 +1,8 @@
 language: python
 sudo: false
 env:
-  - TOX_ENV=py27
-  - TOX_ENV=py33
-  - TOX_ENV=py34
-  - TOX_ENV=pypy
+  - TOX_ENV=py35
+  - TOX_ENV=py36
 install:
   - pip install coveralls tox
 script:
@@ -15,10 +13,16 @@ after_success:
 
 matrix:
   allow_failures:
-    - env: TOX_ENV=py27
-    - env: TOX_ENV=py33
-    - env: TOX_ENV=py34
-    - env: TOX_ENV=pypy
+    - python: 2.7
+      env: TOX_ENV=py27
+    - python: pypy
+      env: TOX_ENV=pypy
+    - python: pypy3.5
+      env: TOX_ENV=pypy3
+    - python: py3.7-dev
+      env: TOX_ENV=py37
   include:
     - python: 3.5
       env: TOX_ENV=py35
+    - python: 3.6
+      env: TOX_ENV=py36

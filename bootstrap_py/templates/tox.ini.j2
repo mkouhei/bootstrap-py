@@ -1,13 +1,11 @@
 [tox]
 envlist =
-    py27,
-    py34,
     py35,
-    pypy,
+    py36,
+    py37,
     pycodestyle
-    pep257,
-    docs,
-    pychecker
+    pydocstyle,
+    docs
 
 [testenv]
 commands =
@@ -31,38 +29,43 @@ deps=
     {[py]deps}
 basepython = python2.7
 
-[testenv:py33]
-deps=
-    {[py]deps}
-basepython = python3.3
-
-[testenv:py34]
-deps=
-    {[py]deps}
-basepython = python3.4
-
 [testenv:py35]
 deps=
     {[py]deps}
 basepython = python3.5
+
+[testenv:py36]
+deps=
+    {[py]deps}
+basepython = python3.6
+
+[testenv:py37]
+deps=
+    {[py]deps}
+basepython = python3.7
 
 [testenv:pypy]
 deps=
     {[py]deps}
 basepython = pypy
 
+[testenv:pypy3]
+deps=
+    {[py]deps}
+basepython = pypy3
+
 [testenv:pycodestyle]
 deps=
     {[py]deps}
     pycodestyle
-basepython = python3.5
+basepython = python3.6
 commands = pycodestyle --first
 
-[testenv:pep257]
+[testenv:pydocstyle]
 deps=
-    pep257
-commands = pep257 {{ module_name }}
-basepython = python3.5
+    pydocstyle
+commands = pydocstyle {{ module_name }}
+basepython = python3.6
 
 [testenv:docs]
 deps=
