@@ -2,14 +2,11 @@
 """bootstrap_py.tests.test_pypi."""
 import unittest
 import json
-import sys
-import socket
 import mock
+import requests
+import socket
+import requests_mock
 from bootstrap_py import pypi, exceptions
-if sys.version_info < (3, 0):
-    import xmlrpclib as xmlrpc_client
-else:
-    from xmlrpc import client as xmlrpc_client
 
 
 def search_result():
@@ -21,63 +18,38 @@ def search_result():
 class PyPITests(unittest.TestCase):
     """bootstrap_py.pypi tests."""
 
-    if sys.version_info < (3, 0):
-        @mock.patch('xmlrpclib.ServerProxy')
-        def test_search_package(self, _mock):
-            """search package for Python2."""
-            client_mock = _mock.return_value
-            client_mock.search.return_value = search_result()
-            self.assertListEqual(pypi.search_package('py-deps'),
-                                 search_result())
-    else:
-        @mock.patch('xmlrpc.client.ServerProxy')
-        def test_search_package(self, _mock):
-            """search package for Python3."""
-            client_mock = _mock.return_value
-            client_mock.search.return_value = search_result()
-            self.assertListEqual(pypi.search_package('py-deps'),
-                                 search_result())
-
-    @mock.patch('bootstrap_py.pypi.search_package')
-    def test_package_existent(self, _mock):
+    def test_package_existent(self):
         """checking package existent."""
-        _mock.return_value = [{'name': 'py-deps'}]
-        with self.assertRaises(exceptions.Conflict):
-            pypi.package_existent('py-deps')
+        package_name = 'py-deps'
+        with requests_mock.Mocker() as _mock:
+            _mock.get(pypi.PYPI_URL.format(package_name), status_code=404)
+            self.assertEqual(pypi.package_existent(package_name), None)
 
-    @mock.patch('bootstrap_py.pypi.search_package')
-    def test_package_existent_duplicate(self, _mock):
+    def test_package_existent_duplicate(self):
         """checking package existent, but this case does not occur."""
-        _mock.return_value = [{'name': 'py-deps'},
-                              {'name': 'py-deps-dummy'}]
-        with self.assertRaises(exceptions.Conflict):
-            pypi.package_existent('py-deps')
+        package_name = 'py-deps'
+        with requests_mock.Mocker() as _mock:
+            _mock.get(pypi.PYPI_URL.format(package_name), status_code=200)
+            with self.assertRaises(exceptions.Conflict):
+                pypi.package_existent(package_name)
 
-    @mock.patch('bootstrap_py.pypi.search_package')
+    @mock.patch('requests.get')
     def test_pypi_slow_response(self, _mock):
         """pypi slow response."""
-        if sys.version_info < (3, 0):
-            # pylint: disable=undefined-variable
-            _mock.side_effect = socket.error
-        else:
-            # pylint: disable=undefined-variable
-            _mock.side_effect = TimeoutError
+        # pylint: disable=undefined-variable
+        _mock.side_effect = requests.exceptions.Timeout
         with self.assertRaises(exceptions.BackendFailure):
             pypi.package_existent('py-deps')
 
-    @mock.patch('bootstrap_py.pypi.search_package')
+    @mock.patch('requests.get')
     def test_pypi_internal_server_down(self, _mock):
         """pypi internal server down."""
-        if sys.version_info < (3, 0):
-            # pylint: disable=undefined-variable
-            _mock.side_effect = socket.error
-        else:
-            # pylint: disable=undefined-variable
-            _mock.side_effect = ConnectionRefusedError
+        # pylint: disable=undefined-variable
+        _mock.side_effect = ConnectionError
         with self.assertRaises(exceptions.BackendFailure):
             pypi.package_existent('py-deps')
 
-    @mock.patch('bootstrap_py.pypi.search_package')
+    @mock.patch('requests.get')
     def test_pypi_interface_down(self, _mock):
         """pypi interface down."""
         # pylint: disable=undefined-variable
@@ -85,12 +57,9 @@ class PyPITests(unittest.TestCase):
         with self.assertRaises(exceptions.BackendFailure):
             pypi.package_existent('py-deps')
 
-    @mock.patch('bootstrap_py.pypi.search_package')
-    def test_pypi_protocol_error(self, _mock):
-        """pypi protocol error."""
-        _mock.side_effect = xmlrpc_client.ProtocolError(pypi.PYPI_URL,
-                                                        400,
-                                                        'dummy',
-                                                        {})
+    @mock.patch('requests.get')
+    def test_pypi_http_error(self, _mock):
+        """pypi http error."""
+        _mock.side_effect = requests.exceptions.HTTPError
         with self.assertRaises(exceptions.BackendFailure):
             pypi.package_existent('py-deps')

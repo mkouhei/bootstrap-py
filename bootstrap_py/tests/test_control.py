@@ -1,12 +1,11 @@
 # -*- coding: utf-8 -*-
 """bootstrap_py.tests.test_control."""
 import unittest
-import mock
 import os
 import tempfile
 import shutil
 import requests_mock
-from bootstrap_py import control, exceptions
+from bootstrap_py import control, exceptions, pypi
 from bootstrap_py.classifiers import Classifiers
 from bootstrap_py.tests.test_package import Dummy
 
@@ -43,10 +42,10 @@ class ControlTests(unittest.TestCase):
         with self.assertRaises(exceptions.Conflict):
             control.check_repository_existence(self.params)
 
-    @mock.patch('bootstrap_py.pypi.search_package')
-    def test_check_package_existence(self, _mock):
+    def test_check_package_existence(self):
         """check_package_existence."""
-        _mock.return_value = [{'name': 'py-deps'}]
-        setattr(self.params, 'no_check', False)
-        with self.assertRaises(exceptions.Conflict):
-            control.check_package_existence(self.params)
+        with requests_mock.Mocker() as _mock:
+            _mock.get(pypi.PYPI_URL.format(self.params.name), status_code=200)
+            setattr(self.params, 'no_check', False)
+            with self.assertRaises(exceptions.Conflict):
+                control.check_package_existence(self.params)
