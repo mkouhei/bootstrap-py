@@ -1,6 +1,16 @@
 ChangeLog
 =========
 
+0.7.0 (2018-11-03)
+------------------
+
+* Fixes package_existent for the new PyPI API.
+* Updates templates.
+* Fixes pylint violations.
+* Unsupports Python 2.x and PyPy (compatible Python 2.7).
+* Supports Python 3.7.
+* Fixes handling empty command without arguments. (Thanks `@sourcepirate <https://github.com/sourcepirate>`_)
+
 0.6.0 (2016-06-08)
 ------------------
 
