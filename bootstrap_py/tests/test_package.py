@@ -14,7 +14,6 @@ from bootstrap_py.tests.stub import stub_request_metadata
 # pylint: disable=too-few-public-methods
 class Dummy:
     """Dummy class."""
-    pass
 
 
 class PackageDataTests(unittest.TestCase):

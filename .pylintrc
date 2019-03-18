@@ -1,5 +1,5 @@
 [MASTER]
-ignore=setup.py,docs/source/conf.py
+ignore=setup.py,conf.py
 
 [MESSAGES CONTROL]
 disable=

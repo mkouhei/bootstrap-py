@@ -36,7 +36,7 @@ def build_sphinx(pkg_data, projectdir):
                                              version=version,
                                              release=pkg_data.version,
                                              projectdir=projectdir)
-    if subprocess.call(shlex.split(args)) is 0:
+    if subprocess.call(shlex.split(args)) == 0:
         _touch_gitkeep(projectdir)
 
 
