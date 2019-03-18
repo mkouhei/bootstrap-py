@@ -1,7 +1,5 @@
 [tox]
 envlist =
-    py35,
-    py36,
     py37,
     pycodestyle
     pydocstyle,
@@ -24,21 +22,6 @@ show-source=True
 statistics=True
 exclude=.svn,CVS,.bzr,.hg,.git,__pycache__,.tox,setup.py,docs
 
-[testenv:py27]
-deps=
-    {[py]deps}
-basepython = python2.7
-
-[testenv:py35]
-deps=
-    {[py]deps}
-basepython = python3.5
-
-[testenv:py36]
-deps=
-    {[py]deps}
-basepython = python3.6
-
 [testenv:py37]
 deps=
     {[py]deps}
@@ -58,23 +41,17 @@ basepython = pypy3
 deps=
     {[py]deps}
     pycodestyle
-basepython = python3.6
+basepython = python3.7
 commands = pycodestyle --first
 
 [testenv:pydocstyle]
 deps=
     pydocstyle
 commands = pydocstyle {{ module_name }}
-basepython = python3.6
+basepython = python3.7
 
 [testenv:docs]
 deps=
     Sphinx
     sphinx_rtd_theme
 commands = python setup.py build_sphinx
-
-[testenv:pychecker]
-deps=
-    http://sourceforge.net/projects/pychecker/files/latest/download#egg=PyChecker
-basepython = python2.7
-commands = pychecker -F {{ module_name }}/*.py
