@@ -1,7 +1,14 @@
 ChangeLog
 =========
 
-0.8.0 (2019-01-18)
+0.8.1 (2019-03-18)
+------------------
+
+* Supports installing with wheel.
+* Changes sdist format using xztar instead of gztar.
+* Fixes README.
+
+0.8.0 (2019-03-18)
 ------------------
 
 * Supports Python 3.7.
