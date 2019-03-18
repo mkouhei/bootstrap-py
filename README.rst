@@ -20,7 +20,7 @@ Status
 Requirements
 ============
 
-* Python 3.5 over
+* Python 3.7 over
 
 Features
 ========
@@ -50,6 +50,8 @@ Install bootstrap-py::
   $ virtualenv venv
   $ . venv/bin/activate
   (venv)$ python -m pip install bootstrap-py
+  or
+  (venv)$ python -m pip wheel bootstrap-py
 
 
 Generate Python package
@@ -89,8 +91,7 @@ Running test with tox::
   $ tox
   (omit)
   _______________________________________ summary ______________________________________
-  py35: commands succeeded
-  py36: commands succeeded
+  py37: commands succeeded
   pycodetyle: commands succeeded
   pydocstyle: commands succeeded
   docs: commands succeeded
