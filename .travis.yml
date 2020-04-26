@@ -1,6 +1,5 @@
 dist: xenial
 language: python
-sudo: false
 
 install:
   - pip install coveralls tox
@@ -12,6 +11,8 @@ after_success:
 
 matrix:
   include:
+    - python: 3.8
+      env: TOX_ENV=py38
     - python: 3.7
       env: TOX_ENV=py37
   allow_failures:

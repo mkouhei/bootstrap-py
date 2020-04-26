@@ -1,23 +1,25 @@
 [tox]
 envlist =
     py37,
+    py38,
     pycodestyle
     pydocstyle,
     docs
 
 [testenv]
 commands =
+    python -c "import shutil, os.path; shutil.rmtree('_build') if os.path.isdir('_build') else None"
     py.test --pylint --pylint-rcfile={toxinidir}/.pylintrc {{ module_name }}
 
 [py]
 deps=
     pytest-cov
-    pytest-flakes
+    pytest-flake8
     pytest-pylint
     pytest-random
     pytest-remove-stale-bytecode
 
-[pep8]
+[pycodetyle]
 show-source=True
 statistics=True
 exclude=.svn,CVS,.bzr,.hg,.git,__pycache__,.tox,setup.py,docs
@@ -27,10 +29,10 @@ deps=
     {[py]deps}
 basepython = python3.7
 
-[testenv:pypy]
+[testenv:py38]
 deps=
     {[py]deps}
-basepython = pypy
+basepython = python3.8
 
 [testenv:pypy3]
 deps=
@@ -41,14 +43,14 @@ basepython = pypy3
 deps=
     {[py]deps}
     pycodestyle
-basepython = python3.7
+basepython = python3.8
 commands = pycodestyle --first
 
 [testenv:pydocstyle]
 deps=
     pydocstyle
 commands = pydocstyle {{ module_name }}
-basepython = python3.7
+basepython = python3.8
 
 [testenv:docs]
 deps=
