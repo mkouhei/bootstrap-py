@@ -1,6 +1,13 @@
 ChangeLog
 =========
 
+1.0.1 (2020-04-26)
+------------------
+
+* Fixes metadata.
+* Appends logn_description_content_type.
+* Changes to use twine check instead of setup.py check in pre-commit hook script.
+
 1.0.0 (2020-04-26)
 ------------------
 
