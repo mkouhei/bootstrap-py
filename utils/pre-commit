@@ -6,6 +6,7 @@ rootdir=$(git rev-parse --show-toplevel)
     rm -rf dist .cache *.egg-info _build *.tests
     find ./ -name '*.pyc' -delete
     tox
-    python setup.py check -r
+    python setup.py sdist
+    twine check dist/*
     which rst2html5.py && python setup.py --long-description | rst2html5.py > /dev/null
 )
