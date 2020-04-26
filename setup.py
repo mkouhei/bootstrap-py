@@ -51,7 +51,7 @@ def read_content(filepath):
 
 
 classifiers = [
-    "Development Status :: 4 - Beta",
+    "Development Status :: 5 - Production/Stable",
     "Intended Audience :: Developers",
     "License :: OSI Approved :: "
     "GNU General Public License v3 or later (GPLv3+)",
@@ -87,6 +87,7 @@ setup(name=__prog__,
       version=__version__,
       description='Bootstrap Python package',
       long_description=long_description,
+      long_description_content_type='text/x-rst',
       author='Kouhei Maeda',
       author_email='mkouhei@palmtb.net',
       url='https://github.com/mkouhei/bootstrap-py',

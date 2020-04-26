@@ -31,7 +31,7 @@ Features
 
   * `pycodestyle <https://pypi.python.org/pypi/pycodestyle>`_
   * `pytest-cov <https://pypi.python.org/pypi/pytest-cov>`_
-  * `pytest-flakes <https://pypi.python.org/pypi/pytest-flakes>`_
+  * `pytest-flake8 <https://pypi.python.org/pypi/pytest-flake8>`_
   * `Pylint <http://www.pylint.org/>`_
   * `pydocstyle <https://pypi.org/project/pydocstyle/>`_
 
