@@ -1,6 +1,16 @@
 ChangeLog
 =========
 
+1.0.0 (2020-04-26)
+------------------
+
+* Applies semantic versioning.
+* Supports Python3.8.
+* Changes use pytest-flake8 instead of pytest-flakes.
+* Updates templates.
+* Fixes pre-commit hook script.
+* Removes _build directory before executing pytest.
+
 0.8.2 (2019-03-18)
 ------------------
 

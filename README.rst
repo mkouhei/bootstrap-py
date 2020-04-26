@@ -53,6 +53,10 @@ Install bootstrap-py::
   or
   (venv)$ python -m pip wheel bootstrap-py
 
+or::
+
+  $ pip install --user bootstrap-py
+
 
 Generate Python package
 -----------------------
@@ -91,6 +95,7 @@ Running test with tox::
   $ tox
   (omit)
   _______________________________________ summary ______________________________________
+  py38: commands succeeded
   py37: commands succeeded
   pycodetyle: commands succeeded
   pydocstyle: commands succeeded
