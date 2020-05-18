@@ -32,8 +32,9 @@ class Classifiers:
 
     def status(self):
         """Development status."""
-        return {self._acronym_status(l): l for l in self.resp_text.split('\n')
-                if l.startswith(self.prefix_status)}
+        return {self._acronym_status(line): line
+                for line in self.resp_text.split('\n')
+                if line.startswith(self.prefix_status)}
 
     @staticmethod
     def _acronym_status(status_statement):
@@ -42,14 +43,15 @@ class Classifiers:
 
     def licenses(self):
         """OSI Approved license."""
-        return {self._acronym_lic(l): l for l in self.resp_text.split('\n')
-                if l.startswith(self.prefix_lic)}
+        return {self._acronym_lic(line): line
+                for line in self.resp_text.split('\n')
+                if line.startswith(self.prefix_lic)}
 
     def licenses_desc(self):
         """Remove prefix."""
-        return {self._acronym_lic(l): l.split(self.prefix_lic)[1]
-                for l in self.resp_text.split('\n')
-                if l.startswith(self.prefix_lic)}
+        return {self._acronym_lic(line): line.split(self.prefix_lic)[1]
+                for line in self.resp_text.split('\n')
+                if line.startswith(self.prefix_lic)}
 
     def _acronym_lic(self, license_statement):
         """Convert license acronym."""
