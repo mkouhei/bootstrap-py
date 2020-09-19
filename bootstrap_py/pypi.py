@@ -30,4 +30,4 @@ def package_existent(name):
             Timeout,
             ConnectionError,
             HTTPError) as exc:
-        raise BackendFailure(exc)
+        raise BackendFailure(exc) from exc
