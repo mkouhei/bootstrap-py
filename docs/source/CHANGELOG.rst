@@ -1,6 +1,11 @@
 ChangeLog
 =========
 
+1.0.2 (2020-09-19)
+------------------
+
+* Fixes raise-missing-from pylint violation.
+
 1.0.1 (2020-04-26)
 ------------------
 
