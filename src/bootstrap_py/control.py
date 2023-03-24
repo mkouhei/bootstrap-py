@@ -2,10 +2,10 @@
 """bootstrap_py.control."""
 import os
 import sys
-from bootstrap_py import package, pypi
-from bootstrap_py.classifiers import Classifiers
-from bootstrap_py.vcs import VCS
-from bootstrap_py.exceptions import Conflict
+from . import package, pypi
+from .classifiers import Classifiers
+from .vcs import VCS
+from .exceptions import Conflict
 
 
 def _pp(dict_data):

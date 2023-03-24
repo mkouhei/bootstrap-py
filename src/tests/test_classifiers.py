@@ -2,7 +2,7 @@
 """bootstrap_py.tests.test_classifiers."""
 import unittest
 from bootstrap_py.classifiers import Classifiers
-from bootstrap_py.tests.stub import stub_request_metadata
+from .stub import stub_request_metadata
 
 
 class ClassifiersTests(unittest.TestCase):

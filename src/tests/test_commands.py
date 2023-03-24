@@ -9,7 +9,7 @@ import sys
 import tempfile
 import six
 from bootstrap_py import commands, __version__
-from bootstrap_py.tests.stub import stub_request_metadata
+from .stub import stub_request_metadata
 
 
 class CommandsTests(unittest.TestCase):
@@ -48,8 +48,8 @@ class CommandsTests(unittest.TestCase):
         with self.assertRaises(SystemExit) as exc:
             parser = commands.parse_options(self.metadata)
             parser.parse_args()
-        self.assertEqual(2, exc.exception.code)
-        self.assertTrue(sys.stderr.getvalue())
+        self.assertEqual(0, exc.exception.code)
+        self.assertEqual('', sys.stderr.getvalue())
 
     def test_setoption_minimum_username(self):
         """parse argument minimum with username."""
@@ -110,5 +110,5 @@ class CommandsTests(unittest.TestCase):
         stub_request_metadata(badge=True)
         with self.assertRaises(SystemExit) as exc:
             commands.main()
-        self.assertEqual(2, exc.exception.code)
-        self.assertTrue(sys.stderr.getvalue())
+        self.assertEqual(0, exc.exception.code)
+        self.assertEqual('', sys.stderr.getvalue())

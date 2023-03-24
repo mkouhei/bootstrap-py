@@ -3,10 +3,6 @@
 import os
 import re
 import requests
-from bootstrap_py import __file__
-
-# See: https://urllib3.readthedocs.org/en/latest/security.html
-requests.packages.urllib3.disable_warnings()
 
 
 class Classifiers:
