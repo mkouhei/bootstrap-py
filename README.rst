@@ -7,8 +7,8 @@ The ``bootstrap-py`` provides generating the Python packages.
 Status
 ======
 
-.. image:: https://secure.travis-ci.org/mkouhei/bootstrap-py.png?branch=master
-   :target: http://travis-ci.org/mkouhei/bootstrap-py
+.. image:: https://github.com/mkouhei/bootstrap-py/actions/workflows/ci.yml/badge.svg
+   :target: https://github.com/mkouhei/bootstrap-py/actions/workflows/ci.yml?query=branch%3Amaster
 .. image:: https://coveralls.io/repos/mkouhei/bootstrap-py/badge.png?branch=master
    :target: https://coveralls.io/r/mkouhei/bootstrap-py?branch=master
 .. image:: https://img.shields.io/pypi/v/bootstrap-py.svg
