@@ -1,5 +1,5 @@
 name: CI
-run-name: ${{ github.actor }} is testing out.
+run-name: Run unit tests, code checker, build docs.
 on: [push]
 jobs:
   build:
