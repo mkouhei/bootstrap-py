@@ -1,7 +1,6 @@
 [build-system]
-requires = ['setuptools']
+requires = ['setuptools', 'setuptools_scm']
 build-backend = 'setuptools.build_meta'
-
 
 [project]
 name = 'bootstrap-py'
@@ -33,6 +32,14 @@ bootstrap-py = 'bootstrap_py.commands:main'
 
 [tools.setuptools]
 package-dir = {'' = 'src'}
+
+[tools.setuptools.dynamic]
+version = {attr = 'bootstrap_py.version.version'}
+
+[tool.setuptools_scm]
+write_to = 'src/bootstrap_py/version.py'
+version_scheme = 'python-simplified-semver'
+local_scheme = 'no-local-version'
 
 [project.urls]
 'Homepage' = 'https://github.com/mkouhei/bootstrap-py'
