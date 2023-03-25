@@ -15,7 +15,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          python -m pip install six mock requests-mock pytest-cov pytest-randam pytest-remove-stale-bytecode
+          python -m pip install six mock requests-mock pytest-cov pytest-random pytest-remove-stale-bytecode
       - name: Run unittest
         run: pytest -v  --random --cov=src --cov-report=term
       - name: flake8
