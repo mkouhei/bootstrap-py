@@ -16,6 +16,7 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           python -m pip install --use-pep517 six mock requests-mock pytest-cov pytest-random pytest-remove-stale-bytecode
+          python -m pip install .
       - name: Run unittest
         run: pytest -v  --random --cov=src --cov-report=term
       - name: flake8
