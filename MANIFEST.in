@@ -2,4 +2,4 @@ include MANIFEST.in
 include README.rst
 include LICENSE
 recursive-include docs *.rst conf.py Makefile
-recursive-include bootstrap_py *.py *.j2 *.txt .txt.sha256
+recursive-include src *.py *.j2 *.txt .txt.sha256
