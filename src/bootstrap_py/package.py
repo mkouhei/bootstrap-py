@@ -7,9 +7,9 @@ from datetime import datetime
 from jinja2 import PackageLoader, Environment
 from pguard import guard
 from pguard import guard_cl as g
-from bootstrap_py.classifiers import Classifiers
-from bootstrap_py.vcs import VCS
-from bootstrap_py.docs import build_sphinx
+from .classifiers import Classifiers
+from .vcs import VCS
+from .docs import build_sphinx
 
 
 # pylint: disable=too-few-public-methods

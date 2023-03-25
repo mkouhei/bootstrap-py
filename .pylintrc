@@ -1,9 +1,0 @@
-[MASTER]
-ignore=setup.py,conf.py
-
-[MESSAGES CONTROL]
-disable=
-    import-error,
-    undefined-variable,
-    wrong-import-order,
-    no-member

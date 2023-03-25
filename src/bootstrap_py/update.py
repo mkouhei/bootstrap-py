@@ -2,7 +2,7 @@
 """bootstrap_py.update."""
 import requests
 from defusedxml.ElementTree import fromstring
-from bootstrap_py import __version__
+from . import __version__
 
 
 class Update:

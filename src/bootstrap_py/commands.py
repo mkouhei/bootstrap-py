@@ -4,9 +4,9 @@ import os
 import sys
 import re
 import argparse
-from bootstrap_py import control, __prog__, __version__
-from bootstrap_py.update import Update
-from bootstrap_py.exceptions import BackendFailure, Conflict
+from . import control, __prog__, __version__
+from .update import Update
+from .exceptions import BackendFailure, Conflict
 
 
 def setoption(parser, metadata=None):

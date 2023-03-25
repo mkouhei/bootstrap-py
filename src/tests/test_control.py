@@ -5,9 +5,10 @@ import os
 import tempfile
 import shutil
 import requests_mock
+from pathlib import Path
 from bootstrap_py import control, exceptions, pypi
 from bootstrap_py.classifiers import Classifiers
-from bootstrap_py.tests.test_package import Dummy
+from .test_package import Dummy
 
 
 class ControlTests(unittest.TestCase):
@@ -27,7 +28,11 @@ class ControlTests(unittest.TestCase):
     def test_retreive_metadata(self):
         """retreive_metadata."""
         with requests_mock.Mocker() as _mock:
-            with open('bootstrap_py/data/classifiers.txt') as fobj:
+            classifiers_path = os.path.join(
+                Path(__file__).parents[1],
+                'bootstrap_py/data/classifiers.txt'
+            )
+            with open(classifiers_path) as fobj:
                 data = fobj.read()
             _mock.get(Classifiers.url,
                       text=data,

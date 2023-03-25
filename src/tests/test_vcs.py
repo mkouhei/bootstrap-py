@@ -4,7 +4,7 @@ import unittest
 import shutil
 import tempfile
 from bootstrap_py.vcs import VCS
-from bootstrap_py.tests.test_package import Dummy
+from .test_package import Dummy
 
 
 class VCSTests(unittest.TestCase):

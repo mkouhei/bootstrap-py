@@ -8,7 +8,7 @@ from glob import glob
 from datetime import datetime
 from mock import patch
 from bootstrap_py import package
-from bootstrap_py.tests.stub import stub_request_metadata
+from .stub import stub_request_metadata
 
 
 # pylint: disable=too-few-public-methods

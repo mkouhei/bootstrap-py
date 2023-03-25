@@ -3,7 +3,7 @@
 import requests
 import socket
 from requests.exceptions import Timeout, HTTPError
-from bootstrap_py.exceptions import BackendFailure, Conflict
+from .exceptions import BackendFailure, Conflict
 
 #: PyPI JSONC API url
 PYPI_URL = 'https://pypi.org/pypi/{0}/json'
