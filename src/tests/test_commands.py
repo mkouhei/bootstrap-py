@@ -8,7 +8,8 @@ import shutil
 import sys
 import tempfile
 import six
-from bootstrap_py import commands, __version__
+from bootstrap_py import commands
+from bootstrap_py.version import __version__
 from .stub import stub_request_metadata
 
 

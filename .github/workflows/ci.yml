@@ -24,6 +24,6 @@ jobs:
       - name: pycodestyle
         run: pycodestyle -v --first src
       - name: pydocstyle
-        run: pydocstyle -v src
+        run: pydocstyle -v --match='(?!test_|version)(.*)?\.py' src
       - name: build docs
         run: sphinx-build -M html docs/source doc/build

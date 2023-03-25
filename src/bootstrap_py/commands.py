@@ -4,7 +4,8 @@ import os
 import sys
 import re
 import argparse
-from . import control, __prog__, __version__
+from . import control, __prog__
+from .version import __version__
 from .update import Update
 from .exceptions import BackendFailure, Conflict
 
