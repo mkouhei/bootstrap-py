@@ -91,7 +91,7 @@ class PackageTreeTests(unittest.TestCase):
         self.assertEqual(self.pkg_tree.name, 'foo')
         self.assertEqual(self.pkg_tree.outdir, self.testdir)
         self.assertTrue(os.path.isdir(self.pkg_tree.tmpdir))
-        self.assertEqual(len(self.pkg_tree.templates.list_templates()), 13)
+        self.assertEqual(len(self.pkg_tree.templates.list_templates()), 14)
         self.assertEqual(self.pkg_tree.pkg_data, self.pkg_data)
 
     def test_init_py(self):
