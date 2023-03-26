@@ -20,7 +20,7 @@ Status
 Requirements
 ============
 
-* Python 3.7 over
+* Python 3.9 over
 
 Features
 ========
@@ -83,8 +83,8 @@ Running test with tox::
   $ tox
   (omit)
   _______________________________________ summary ______________________________________
-  py38: commands succeeded
-  py37: commands succeeded
+  py311: commands succeeded
+  flake8: commands succeeded
   pycodetyle: commands succeeded
   pydocstyle: commands succeeded
   docs: commands succeeded
