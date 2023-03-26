@@ -91,7 +91,7 @@ class PackageTreeTests(unittest.TestCase):
         self.assertEqual(self.pkg_tree.name, 'foo')
         self.assertEqual(self.pkg_tree.outdir, self.testdir)
         self.assertTrue(os.path.isdir(self.pkg_tree.tmpdir))
-        self.assertEqual(len(self.pkg_tree.templates.list_templates()), 18)
+        self.assertEqual(len(self.pkg_tree.templates.list_templates()), 14)
         self.assertEqual(self.pkg_tree.pkg_data, self.pkg_data)
 
     def test_init_py(self):
@@ -110,25 +110,30 @@ class PackageTreeTests(unittest.TestCase):
         """generate directories."""
         getattr(self.pkg_tree, '_generate_dirs')()
         os.chdir(self.pkg_tree.tmpdir)
-        self.assertTrue(os.path.isdir(self.pkg_tree.pkg_data.module_name))
-        self.assertTrue(os.path.isdir(
-            os.path.join(self.pkg_tree.pkg_data.module_name,
-                         'tests')))
+        self.assertTrue(
+            os.path.isdir(
+                os.path.join('src', self.pkg_tree.pkg_data.module_name)
+            )
+        )
+        dir_path = os.path.join(
+            'src', self.pkg_tree.pkg_data.module_name, 'tests'
+        )
+        self.assertTrue(os.path.isdir(dir_path))
         self.assertTrue(os.path.isdir('utils'))
         self.assertTrue(os.path.isdir('docs/source/modules'))
 
     def test_list_module_dirs(self):
         """list module directories."""
         self.assertEqual(getattr(self.pkg_tree, '_list_module_dirs')(),
-                         ['{module_name}', '{module_name}/tests'])
+                         ['src/{module_name}', 'src/{module_name}/tests'])
 
     def test_generate_init(self):
         """generate __init__.py."""
         getattr(self.pkg_tree, '_generate_dirs')()
         getattr(self.pkg_tree, '_generate_init')()
         os.chdir(self.pkg_tree.tmpdir)
-        self.assertTrue(os.path.isfile('foo/__init__.py'))
-        self.assertTrue(os.path.isfile('foo/tests/__init__.py'))
+        self.assertTrue(os.path.isfile('src/foo/__init__.py'))
+        self.assertTrue(os.path.isfile('src/foo/tests/__init__.py'))
 
     def test_generate_files(self):
         """generate files."""
@@ -136,9 +141,9 @@ class PackageTreeTests(unittest.TestCase):
         getattr(self.pkg_tree, '_generate_files')()
         os.chdir(self.pkg_tree.tmpdir)
         self.assertEqual(len([i for i in glob('./*')
-                              if os.path.isfile(i)]), 6)
+                              if os.path.isfile(i)]), 4)
         self.assertEqual(len([i for i in glob('./.*')
-                              if os.path.isfile(i)]), 5)
+                              if os.path.isfile(i)]), 2)
         self.assertEqual(len([i for i in glob('utils/*')
                               if os.path.isfile(i)]), 1)
         self.assertEqual(len([i for i in glob('docs/source/*')
@@ -153,12 +158,12 @@ class PackageTreeTests(unittest.TestCase):
         getattr(self.pkg_tree, '_generate_files')()
         os.chdir(self.pkg_tree.tmpdir)
         self.assertEqual(len([i for i in glob('./*')
-                              if os.path.isfile(i)]), 6)
+                              if os.path.isfile(i)]), 4)
         self.assertEqual(len([i for i in glob('./.*')
-                              if os.path.isfile(i)]), 5)
-        self.assertEqual(len([i for i in glob('foo/*')
                               if os.path.isfile(i)]), 2)
-        self.assertEqual(len([i for i in glob('foo/tests/*')
+        self.assertEqual(len([i for i in glob('src/foo/*')
+                              if os.path.isfile(i)]), 2)
+        self.assertEqual(len([i for i in glob('src/foo/tests/*')
                               if os.path.isfile(i)]), 2)
         self.assertEqual(len([i for i in glob('utils/*')
                               if os.path.isfile(i)]), 1)
@@ -181,17 +186,18 @@ class PackageTreeTests(unittest.TestCase):
         popen_mock.call = None
         self.pkg_tree.generate()
         os.chdir(self.pkg_tree.tmpdir)
-        self.assertTrue(os.path.isdir(self.pkg_tree.name))
-        self.assertTrue(os.path.isdir(os.path.join(self.pkg_tree.name,
-                                                   'tests')))
+        self.assertTrue(os.path.isdir(os.path.join('src', self.pkg_tree.name)))
+        self.assertTrue(
+            os.path.isdir(os.path.join('src', self.pkg_tree.name, 'tests'))
+        )
         self.assertTrue(os.path.isdir('utils'))
         self.assertTrue(os.path.isdir('docs/source/modules'))
-        self.assertTrue(os.path.isfile('foo/__init__.py'))
-        self.assertTrue(os.path.isfile('foo/tests/__init__.py'))
+        self.assertTrue(os.path.isfile('src/foo/__init__.py'))
+        self.assertTrue(os.path.isfile('src/foo/tests/__init__.py'))
         self.assertEqual(len([i for i in glob('./*')
-                              if os.path.isfile(i)]), 6)
+                              if os.path.isfile(i)]), 4)
         self.assertEqual(len([i for i in glob('./.*')
-                              if os.path.isfile(i)]), 5)
+                              if os.path.isfile(i)]), 2)
         self.assertEqual(len([i for i in glob('utils/*')
                               if os.path.isfile(i)]), 1)
         self.assertEqual(len([i for i in glob('docs/source/*')

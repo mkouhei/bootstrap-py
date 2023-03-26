@@ -1,59 +1,59 @@
 [tox]
 envlist =
-    py37,
-    py38,
-    pycodestyle
+    py311,
+    flake8,
+    pycodestyle,
     pydocstyle,
     docs
-
-[testenv]
-commands =
-    python -c "import shutil, os.path; shutil.rmtree('_build') if os.path.isdir('_build') else None"
-    py.test --pylint --pylint-rcfile={toxinidir}/.pylintrc {{ module_name }}
 
 [py]
 deps=
     pytest-cov
-    pytest-flake8
-    pytest-pylint
     pytest-random
     pytest-remove-stale-bytecode
 
-[pycodetyle]
-show-source=True
-statistics=True
-exclude=.svn,CVS,.bzr,.hg,.git,__pycache__,.tox,setup.py,docs
-
-[testenv:py37]
+[testenv:py311]
 deps=
     {[py]deps}
-basepython = python3.7
+basepython = python3.11
+commands = pytest -v --random --cov=src/{{ module_name }} --cov-report=term --cov-report=html
 
-[testenv:py38]
+[testenv:py310]
 deps=
     {[py]deps}
-basepython = python3.8
+basepython = python3.10
+commands = pytest -v --random --cov=src/{{ module_name }} --cov-report=term --cov-report=html
+
+[testenv:py39]
+deps=
+    {[py]deps}
+basepython = python3.9
+commands = pytest -v --random --cov=src/{{ module_name }} --cov-report=term --cov-report=html
 
 [testenv:pypy3]
 deps=
     {[py]deps}
 basepython = pypy3
+commands = pytest -v --random --cov=src/{{ module_name }} --cov-report=term --cov-report=html
+
+[testenv:flake8]
+exclude = .tox/*
+deps = flake8
+commands = flake8 src
 
 [testenv:pycodestyle]
-deps=
-    {[py]deps}
-    pycodestyle
-basepython = python3.8
-commands = pycodestyle --first
+show-source=True
+statistics=True
+exclude=.git,__pycache__,.tox/*,docs/*
+deps=pycodestyle
+commands = pycodestyle -v --first src
 
 [testenv:pydocstyle]
-deps=
-    pydocstyle
-commands = pydocstyle {{ module_name }}
-basepython = python3.8
+deps=pydocstyle
+commands = pydocstyle -v --match='(?!test_|version)(.*)?\.py' src
 
 [testenv:docs]
 deps=
     Sphinx
     sphinx_rtd_theme
-commands = python setup.py build_sphinx
+commands = sphinx-build -M html docs/source docs/build

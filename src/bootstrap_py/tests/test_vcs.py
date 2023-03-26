@@ -15,6 +15,7 @@ class VCSTests(unittest.TestCase):
         self.testdir = tempfile.mkdtemp(suffix='-bootstrap-py-vcs-test')
         self.metadata = Dummy()
         setattr(self.metadata, 'name', 'foobar')
+        setattr(self.metadata, 'module_name', 'foobar')
         setattr(self.metadata, 'author', 'Alice Forest')
         setattr(self.metadata, 'email', 'alice@example.org')
         setattr(self.metadata, 'username', 'alice')

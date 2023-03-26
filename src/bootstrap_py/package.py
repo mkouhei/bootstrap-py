@@ -68,7 +68,7 @@ class PackageTree:
     #: default permission
     exec_perm = 0o755
     #: include directories to packages
-    pkg_dirs = ['{module_name}', '{module_name}/tests']
+    pkg_dirs = ['src/{module_name}', 'src/{module_name}/tests']
 
     def __init__(self, pkg_data):
         """Initialize."""
@@ -86,6 +86,7 @@ class PackageTree:
 
     def _sample_py(self, file_path):
         return os.path.join(self.tmpdir,
+                            'src',
                             self.pkg_data.module_name,
                             os.path.splitext(file_path)[0])
 
@@ -112,7 +113,7 @@ class PackageTree:
 
     def _list_module_dirs(self):
         return [dir_path for dir_path in self.pkg_dirs
-                if dir_path.find('{module_name}') == 0]
+                if dir_path.find('src/{module_name}') == 0]
 
     def _generate_init(self):
         tmpl = self.templates.get_template('__init__.py.j2')

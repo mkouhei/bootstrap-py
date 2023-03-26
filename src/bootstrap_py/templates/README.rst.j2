@@ -9,8 +9,8 @@ TODO: Rewrite me. Append your package's long description.
 Status
 ======
 
-.. image:: https://secure.travis-ci.org/{{ username }}/{{ name }}.png?branch=master
-   :target: http://travis-ci.org/{{ username }}/{{ name }}
+.. image:: https://github.com/{{ username}}/{{ name }}/actions/workflows/ci.yml/badge.svg
+   :target: https://github.com/{{ username }}/{{ name }}/actions/workflows/ci.yml/badge.svg?query=branch%3Amain
 .. image:: https://coveralls.io/repos/{{ username }}/{{ name }}/badge.png?branch=master
    :target: https://coveralls.io/r/{{ username }}/{{ name }}?branch=master
 .. image:: https://img.shields.io/pypi/v/{{ name }}.svg
@@ -23,7 +23,7 @@ Status
 Requirements
 ============
 
-* Python 3.7 over
+* Python 3.9 over
 
 Features
 ========
@@ -35,9 +35,8 @@ Setup
 
 ::
 
-  $ python -m pip install --user {{ name }}
-  or
-  (venv)$ python -m pip install {{ name }}
+  $ python -m venv /path/to/venv
+  $ /path/to/venv/bin/python -m pip install {{ name }}
 
 Usage
 =====
@@ -46,7 +45,7 @@ ToDo: Rewrite me.
 
 ::
 
-  $ python
+  $ /path/to/venv/bin/python
   >>> import {{ module_name }}
   >>> {{ module_name }}.sample.hello()
   'hello'
