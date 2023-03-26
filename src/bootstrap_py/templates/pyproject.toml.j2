@@ -3,46 +3,43 @@ requires = ['setuptools', 'setuptools_scm']
 build-backend = 'setuptools.build_meta'
 
 [project]
-name = 'bootstrap-py'
-description = 'Template tool to easily generate your Python packages.'
+name = '{{ name }}'
+description = '{{ description }}'
 readme = 'README.rst'
 license = {file = 'LICENSE'}
-authors = [{name='Kouhei Maeda', email='mkouhei@palmtb.net'}]
-dependencies = ['Jinja2', 'Sphinx', 'requests', 'defusedxml', 'pguard', 'GitPython', 'setuptools-scm']
+authors = [{name='{{ author }}', email='{{ email }}'}]
+dependencies = []
 classifiers = [
-    "Development Status :: 5 - Production/Stable",
+    "{{ status }}",
     "Intended Audience :: Developers",
     "License :: OSI Approved :: ",
-    "GNU General Public License v3 or later (GPLv3+)",
+    "{{ license }}",
     "Programming Language :: Python",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",    
     "Programming Language :: Python :: Implementation :: CPython",
-    "Topic :: Software Development",
-    "Topic :: System :: Archiving :: Packaging",
-    "Topic :: System :: Software Distribution",
 ]
 requires-python = '>=3.9'
 dynamic = ['version']
 
 [project.scripts]
-bootstrap-py = 'bootstrap_py.commands:main'
+#{{ name }} = '{{ module_name }}.commands:main'
 
 [tools.setuptools]
 package-dir = {'' = 'src'}
 
 [tools.setuptools.dynamic]
-version = {attr = 'bootstrap_py.version.version'}
+version = {attr = '{{ module_name }}.version.version'}
 
 [tool.setuptools_scm]
-write_to = 'src/bootstrap_py/version.py'
+write_to = 'src/{{ module_name }}/version.py'
 version_scheme = 'python-simplified-semver'
 local_scheme = 'no-local-version'
 
 [project.urls]
-'Homepage' = 'https://github.com/mkouhei/bootstrap-py'
+'Homepage' = '{{ url }}'
 
 [project.optional-dependencies]
 test=[

@@ -2,6 +2,7 @@
 """bootstrap_py.vcs."""
 import os
 import git
+from setuptools_scm import get_version
 
 
 # pylint: disable=too-few-public-methods
@@ -13,6 +14,7 @@ class VCS:
         self.metadata = metadata
         self.repo = git.Repo.init(os.path.join(repo_dir))
         self._config()
+        self._generate_version()
         self._add_index()
         self._initial_commit()
         if hasattr(self.metadata, 'username') and self.metadata.username:
@@ -39,6 +41,19 @@ class VCS:
         cfg_wr.set_value('user', 'name', self.metadata.author)
         cfg_wr.set_value('user', 'email', self.metadata.email)
         cfg_wr.release()
+
+    def _generate_version(self):
+        """Generate version.py."""
+        module_dir_path = os.path.join(
+            self.repo.working_dir, f'src/{self.metadata.module_name}'
+        )
+        if os.path.isdir(module_dir_path) is False:
+            return
+
+        get_version(
+            root=self.repo.working_dir,
+            write_to=os.path.join(module_dir_path, 'version.py')
+        )
 
     def _initial_commit(self):
         """Initialize commit."""
