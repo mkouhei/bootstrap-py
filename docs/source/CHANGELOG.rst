@@ -1,6 +1,14 @@
 ChangeLog
 =========
 
+2.0.0 (2023-03-26)
+------------------
+
+* Supports Python version 3.9 over only.
+* Changes to use setup.py to pyproject.toml.
+* Changes CI GitHub Actions instead of travis-ci.
+* Changes flat-layout to src-layout.
+
 1.0.2 (2020-09-19)
 ------------------
 

@@ -32,7 +32,6 @@ Features
   * `pycodestyle <https://pypi.python.org/pypi/pycodestyle>`_
   * `pytest-cov <https://pypi.python.org/pypi/pytest-cov>`_
   * `pytest-flake8 <https://pypi.python.org/pypi/pytest-flake8>`_
-  * `Pylint <http://www.pylint.org/>`_
   * `pydocstyle <https://pypi.org/project/pydocstyle/>`_
 
 * Generating documentation automatically with the `Sphinx <http://www.sphinx-doc.org/en/stable/>`_.
@@ -47,30 +46,19 @@ Install bootstrap-py
 
 Install bootstrap-py::
 
-  $ virtualenv venv
-  $ . venv/bin/activate
-  (venv)$ python -m pip install bootstrap-py
-  or
-  (venv)$ python -m pip wheel bootstrap-py
-
-or::
-
-  $ pip install --user bootstrap-py
-
+  $ python -m venv .venv
+  $ python -m pip install bootstrap-py
 
 Generate Python package
 -----------------------
 
 Generate your Python package.::
 
-  (venv)$ bootstrap-py create -a 'Your author name' -e 'your-author-email@example.org' \
+  $ .venv/bin/bootstrap-py create -a 'Your author name' -e 'your-author-email@example.org' \
   -u 'https://your-package-website.example.org' -o '/path/to/package-dir' \
   -l 'select-the-license' 'your-package-name'
-  (venv)$ deactivate
-  $ cd /path/to/package-dir
-  $ ls
-  MANIFEST.in  docs     pytest.ini  setup.py  utils
-  README.rst   libneta  setup.cfg   tox.ini
+  $ ls -a package-dir
+  .  ..  .coveragerc  .git  .github  .gitignore  MANIFEST.in  README.rst  docs  pyproject.toml  src  tox.ini  utils
 
 
 List license choices
@@ -78,7 +66,7 @@ List license choices
 
 List license description choices.::
 
-  (venv)$ bootstrap-py list -l
+  $ .venv/bin/bootstrap-py list -l
   GPL        : GNU General Public License (GPL)
   CPL        : Common Public License
   IOSL       : Intel Open Source License
