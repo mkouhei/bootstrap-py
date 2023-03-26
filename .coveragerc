@@ -2,5 +2,5 @@
 include =
     src/bootstrap_py/*
 omit =
-    src/tests/*,
+    src/bootstrap_py/tests/*,
     src/bootstrap_py/templates/*

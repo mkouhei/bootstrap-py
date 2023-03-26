@@ -30,7 +30,7 @@ class ControlTests(unittest.TestCase):
         with requests_mock.Mocker() as _mock:
             classifiers_path = os.path.join(
                 Path(__file__).parents[1],
-                'bootstrap_py/data/classifiers.txt'
+                'data/classifiers.txt'
             )
             with open(classifiers_path) as fobj:
                 data = fobj.read()

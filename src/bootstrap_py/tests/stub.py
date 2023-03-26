@@ -23,7 +23,7 @@ def stub_request_metadata(badge=False):
 
     with requests_mock.Mocker() as mock:
         classifiers_path = os.path.join(
-            Path(__file__).parents[1],
+            Path(__file__).parents[2],
             'bootstrap_py/data/classifiers.txt'
         )
         with open(classifiers_path) as fobj:
